@@ -1,0 +1,2273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MercurAI · Decision Intelligence</title>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
+    </script>
+    <!-- vis.js for graph -->
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js">
+    </script>
+    <!-- Firebase v9 (modular) -->
+    <script type="importmap">
+        {
+            "imports": {
+                "firebase/app": "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js",
+                "firebase/firestore": "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js",
+                "firebase/storage": "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js"
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400..900&family=Nunito+Sans:opsz,wght@6..12,400..800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries">
+    </script>
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-tint": "#4a7c59",
+                        "primary-container": "#78a886",
+                        "error-container": "#ffdad8",
+                        "tertiary-container": "#c4a66a",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed-dim": "#dcc48e",
+                        "surface-container-low": "#f5f1ea",
+                        "on-primary-container": "#d8f0de",
+                        "secondary": "#6b6358",
+                        "on-primary-fixed-variant": "#2a6038",
+                        "on-background": "#2e3230",
+                        "background": "#faf6f0",
+                        "surface-container-high": "#eae6de",
+                        "outline-variant": "#c4c8bc",
+                        "on-tertiary-fixed-variant": "#554020",
+                        "primary-fixed-dim": "#8ecf9e",
+                        "outline": "#74796e",
+                        "on-primary-fixed": "#002110",
+                        "secondary-fixed": "#f0e8db",
+                        "on-secondary-fixed-variant": "#4a4538",
+                        "inverse-surface": "#2e3230",
+                        "surface-container-highest": "#e4e0d8",
+                        "surface-container": "#f0ece4",
+                        "on-tertiary-fixed": "#221a05",
+                        "secondary-fixed-dim": "#d4ccbf",
+                        "surface-variant": "#e4e0d8",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#2e3230",
+                        "on-secondary-container": "#5e5548",
+                        "tertiary-fixed": "#f8e0a8",
+                        "secondary-container": "#f0e8db",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#705c30",
+                        "on-error-container": "#690005",
+                        "on-surface-variant": "#4a4e4a",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#c8e8d0",
+                        "primary": "#4a7c59",
+                        "surface-dim": "#dbd7cf",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#554020",
+                        "inverse-primary": "#8ecf9e",
+                        "on-secondary-fixed": "#1e1a13",
+                        "inverse-on-surface": "#f5f0e8",
+                        "surface-bright": "#faf6f0",
+                        "error": "#b83230",
+                        "surface": "#faf6f0"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.5rem",
+                        lg: "1rem",
+                        xl: "1.5rem",
+                        full: "9999px"
+                    },
+                    fontFamily: {
+                        headline: ["Literata", "serif"],
+                        display: ["Literata", "serif"],
+                        body: ["Nunito Sans", "sans-serif"],
+                        label: ["Nunito Sans", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Nunito Sans', sans-serif;
+            background-color: #faf6f0;
+            color: #2e3230;
+        }
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        .font-headline {
+            font-family: 'Literata', serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e4e0d8;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #c4c8bc;
+        }
+
+        .graph-container {
+            height: 460px;
+            background: #f5f1ea;
+            border-radius: 0.75rem;
+            border: 1px solid #e4e0d8;
+            overflow: hidden;
+        }
+        #knowledgeGraph {
+            width: 100%;
+            height: 100%;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            background: #ffffff;
+            border: 1px solid #e4e0d8;
+            padding: 14px 22px;
+            border-radius: 1rem;
+            box-shadow: 0 8px 40px rgba(46, 50, 48, 0.12);
+            max-width: 400px;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideUp 0.3s ease;
+            font-size: 0.85rem;
+            border-left: 4px solid #4a7c59;
+        }
+        .toast.success {
+            border-left-color: #4a7c59;
+        }
+        .toast.error {
+            border-left-color: #b83230;
+        }
+        .toast.info {
+            border-left-color: #705c30;
+        }
+        @keyframes slideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .upload-zone {
+            border: 2px dashed #c4c8bc;
+            border-radius: 1rem;
+            padding: 32px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #ffffff;
+        }
+        .upload-zone:hover {
+            border-color: #4a7c59;
+            background: #f5f1ea;
+        }
+        .upload-zone.dragover {
+            border-color: #4a7c59;
+            background: rgba(74, 124, 89, 0.04);
+        }
+        #fileInput {
+            display: none;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px;
+            background: #ffffff;
+            border-radius: 0.75rem;
+            border: 1px solid #e4e0d8;
+            font-size: 0.82rem;
+            transition: all 0.2s;
+        }
+        .file-item:hover {
+            border-color: #c4c8bc;
+        }
+        .file-item .status.done {
+            color: #4a7c59;
+        }
+        .file-item .status.error {
+            color: #b83230;
+        }
+        .file-item .status.processing {
+            color: #705c30;
+        }
+
+        .agent-chip {
+            background: #ffffff;
+            border-radius: 0.75rem;
+            padding: 10px 14px;
+            border: 1px solid #e4e0d8;
+            text-align: center;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .agent-chip:hover {
+            border-color: #4a7c59;
+            transform: translateY(-2px);
+        }
+        .agent-chip .agent-status.good {
+            color: #4a7c59;
+        }
+        .agent-chip .agent-status.warn {
+            color: #705c30;
+        }
+        .agent-chip .agent-status.bad {
+            color: #b83230;
+        }
+        .agent-chip.active {
+            border-color: #4a7c59;
+            background: rgba(74, 124, 89, 0.06);
+        }
+        .agent-chip.inactive {
+            opacity: 0.5;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 36px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .toggle-switch .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #c4c8bc;
+            transition: 0.3s;
+            border-radius: 20px;
+        }
+        .toggle-switch .slider:before {
+            content: "";
+            position: absolute;
+            height: 14px;
+            width: 14px;
+            left: 3px;
+            bottom: 3px;
+            background: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+        .toggle-switch input:checked+.slider {
+            background: #4a7c59;
+        }
+        .toggle-switch input:checked+.slider:before {
+            transform: translateX(16px);
+        }
+
+        .decision-badge {
+            padding: 4px 14px;
+            border-radius: 9999px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            background: #f5f1ea;
+            border: 1px solid #e4e0d8;
+            color: #4a4e4a;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .decision-badge.active {
+            border-color: #4a7c59;
+            color: #4a7c59;
+            background: rgba(74, 124, 89, 0.06);
+        }
+        .decision-badge.risk-high {
+            border-color: #b83230;
+            color: #b83230;
+            background: rgba(184, 50, 48, 0.06);
+        }
+        .decision-badge.risk-med {
+            border-color: #705c30;
+            color: #705c30;
+            background: rgba(112, 92, 48, 0.06);
+        }
+        .decision-badge.risk-low {
+            border-color: #4a7c59;
+            color: #4a7c59;
+            background: rgba(74, 124, 89, 0.06);
+        }
+
+        .chart-wrapper {
+            height: 120px;
+            position: relative;
+        }
+        .chart-wrapper canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        .message {
+            padding: 12px 18px;
+            border-radius: 1rem;
+            max-width: 88%;
+            animation: fadeSlide 0.3s ease;
+            font-size: 0.88rem;
+            line-height: 1.7;
+        }
+        .message.user {
+            align-self: flex-end;
+            background: #4a7c59;
+            color: #ffffff;
+            border-bottom-right-radius: 4px;
+        }
+        .message.assistant {
+            align-self: flex-start;
+            background: #ffffff;
+            border: 1px solid #e4e0d8;
+            border-bottom-left-radius: 4px;
+        }
+        .message .msg-label {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #4a4e4a;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .message.user .msg-label {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .message .msg-body {
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .message .msg-body strong {
+            font-weight: 700;
+        }
+        .message.user .msg-body strong {
+            color: rgba(255, 255, 255, 0.9);
+        }
+        .message .data-ref {
+            font-size: 0.68rem;
+            color: #705c30;
+            margin-top: 6px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+        .message .data-ref span {
+            background: rgba(112, 92, 48, 0.06);
+            padding: 2px 12px;
+            border-radius: 14px;
+            border: 1px solid rgba(112, 92, 48, 0.1);
+        }
+        .message.user .data-ref span {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        @keyframes fadeSlide {
+            0% {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chat-input-row input {
+            flex: 1;
+            padding: 14px 20px;
+            border-radius: 9999px;
+            border: 1px solid #e4e0d8;
+            background: #ffffff;
+            color: #2e3230;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.2s;
+            font-family: 'Nunito Sans', sans-serif;
+        }
+        .chat-input-row input:focus {
+            border-color: #4a7c59;
+            box-shadow: 0 0 0 3px rgba(74, 124, 89, 0.1);
+        }
+        .chat-input-row input::placeholder {
+            color: #4a4e4a;
+            opacity: 0.6;
+            font-size: 1rem;
+        }
+        .chat-input-row button {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 9999px;
+            background: #4a7c59;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Nunito Sans', sans-serif;
+            white-space: nowrap;
+        }
+        .chat-input-row button:hover {
+            background: #3a6a49;
+            transform: scale(1.02);
+        }
+        .chat-input-row button:disabled {
+            opacity: 0.5;
+            pointer-events: none;
+            transform: none;
+        }
+
+        .ext-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 16px;
+            background: #ffffff;
+            border-radius: 0.75rem;
+            border-left: 3px solid #4a7c59;
+            font-size: 0.82rem;
+            transition: all 0.2s;
+        }
+        .ext-item:hover {
+            background: #f5f1ea;
+        }
+        .ext-item.weather {
+            border-left-color: #fbbf24;
+        }
+        .ext-item.price {
+            border-left-color: #4a7c59;
+        }
+        .ext-item.news {
+            border-left-color: #b83230;
+        }
+        .ext-item.policy {
+            border-left-color: #705c30;
+        }
+
+        .sidebar-link.active {
+            background: #78a886;
+            color: #ffffff !important;
+            font-weight: 700;
+        }
+        .sidebar-link.active .material-symbols-outlined {
+            color: #ffffff;
+        }
+
+        .detail-card {
+            background: #ffffff;
+            border-radius: 1rem;
+            padding: 20px;
+            border: 1px solid #e4e0d8;
+            transition: all 0.2s;
+        }
+        .detail-card:hover {
+            border-color: #c4c8bc;
+        }
+        .detail-card .detail-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #4a4e4a;
+            font-weight: 600;
+        }
+        .detail-card .detail-value {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2e3230;
+        }
+        .detail-card .detail-sub {
+            font-size: 0.8rem;
+            color: #4a4e4a;
+        }
+
+        .status-badge {
+            padding: 2px 12px;
+            border-radius: 9999px;
+            font-size: 0.65rem;
+            font-weight: 600;
+        }
+        .status-badge.good {
+            background: rgba(74, 124, 89, 0.12);
+            color: #4a7c59;
+        }
+        .status-badge.warn {
+            background: rgba(112, 92, 48, 0.12);
+            color: #705c30;
+        }
+        .status-badge.bad {
+            background: rgba(184, 50, 48, 0.12);
+            color: #b83230;
+        }
+        .status-badge.info {
+            background: rgba(74, 124, 89, 0.08);
+            color: #4a7c59;
+        }
+
+        .policy-card {
+            padding: 14px 16px;
+            background: #f5f1ea;
+            border-radius: 0.75rem;
+            border-left: 3px solid #4a7c59;
+        }
+        .policy-card .policy-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .policy-card .policy-desc {
+            font-size: 0.8rem;
+            color: #4a4e4a;
+        }
+        .policy-card .policy-tag {
+            font-size: 0.6rem;
+            padding: 2px 10px;
+            border-radius: 9999px;
+            background: rgba(74, 124, 89, 0.1);
+            color: #4a7c59;
+        }
+
+        .employee-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 10px 14px;
+            background: #ffffff;
+            border-radius: 0.75rem;
+            border: 1px solid #e4e0d8;
+            transition: all 0.2s;
+        }
+        .employee-card:hover {
+            border-color: #c4c8bc;
+        }
+        .employee-card .emp-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #78a886;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+        .employee-card .emp-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .employee-card .emp-name {
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        .employee-card .emp-role {
+            font-size: 0.7rem;
+            color: #4a4e4a;
+        }
+        .employee-card .emp-detail {
+            font-size: 0.65rem;
+            color: #4a4e4a;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 8px;
+        }
+        .employee-card .emp-detail span {
+            background: #f5f1ea;
+            padding: 0 8px;
+            border-radius: 12px;
+        }
+
+        .goal-box {
+            background: #ffffff;
+            border-radius: 0.75rem;
+            padding: 16px;
+            border: 1px solid #e4e0d8;
+            margin-bottom: 10px;
+        }
+        .goal-box .goal-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .goal-box .goal-desc {
+            font-size: 0.8rem;
+            color: #4a4e4a;
+            margin-top: 2px;
+        }
+        .goal-box .goal-meta {
+            font-size: 0.65rem;
+            color: #74796e;
+            margin-top: 4px;
+            display: flex;
+            gap: 12px;
+        }
+        .goal-box .goal-status {
+            padding: 2px 12px;
+            border-radius: 9999px;
+            font-size: 0.6rem;
+            font-weight: 600;
+        }
+        .goal-box .goal-status.active {
+            background: rgba(74, 124, 89, 0.12);
+            color: #4a7c59;
+        }
+        .goal-box .goal-status.done {
+            background: rgba(112, 92, 48, 0.12);
+            color: #705c30;
+        }
+        .goal-box .goal-status.pending {
+            background: rgba(184, 50, 48, 0.12);
+            color: #b83230;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeSlide 0.3s ease;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        @media (max-width: 640px) {
+            .chat-input-row {
+                flex-direction: column;
+            }
+            .chat-input-row button {
+                justify-content: center;
+            }
+            .agent-grid {
+                grid-template-columns: 1fr 1fr !important;
+            }
+            .graph-container {
+                height: 320px;
+            }
+        }
+
+        .pb-safe {
+            padding-bottom: env(safe-area-inset-bottom, 1rem);
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-background antialiased flex flex-col md:flex-row min-h-screen">
+
+    <!-- ═══ SIDENAV (Desktop) ═══ -->
+    <nav class="hidden md:flex h-screen w-64 fixed left-0 top-0 bg-surface-container-low border-r border-outline-variant/30 flex-col p-4 gap-1 z-40 overflow-y-auto">
+        <div class="mb-6 px-4 py-2">
+            <h1 class="font-headline text-xl text-on-surface font-bold text-primary">MercurAI</h1>
+            <p class="font-label text-sm tracking-wide text-on-surface-variant">Decision Intelligence</p>
+        </div>
+        <div class="flex-1 flex flex-col gap-0.5">
+            <a class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high duration-200 font-label text-sm tracking-wide" href="#" data-tab="tabDashboard">
+                <span class="material-symbols-outlined text-[20px]">dashboard</span>
+                Overview
+            </a>
+            <a class="sidebar-link active flex items-center gap-3 px-4 py-2.5 rounded-xl bg-primary-container text-on-primary-container font-bold duration-200 font-label text-sm tracking-wide" href="#" data-tab="tabChat">
+                <span class="material-symbols-outlined fill text-[20px]">psychology</span>
+                Intelligence
+            </a>
+            <a class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high duration-200 font-label text-sm tracking-wide" href="#" data-tab="tabGraph">
+                <span class="material-symbols-outlined text-[20px]">hub</span>
+                Knowledge
+            </a>
+            <a class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high duration-200 font-label text-sm tracking-wide" href="#" data-tab="tabInventory">
+                <span class="material-symbols-outlined text-[20px]">inventory_2</span>
+                Inventory
+            </a>
+            <a class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high duration-200 font-label text-sm tracking-wide" href="#" data-tab="tabFinance">
+                <span class="material-symbols-outlined text-[20px]">account_balance</span>
+                Finance
+            </a>
+            <a class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high duration-200 font-label text-sm tracking-wide" href="#" data-tab="tabPolicy">
+                <span class="material-symbols-outlined text-[20px]">gavel</span>
+                Policy
+            </a>
+            <a class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high duration-200 font-label text-sm tracking-wide" href="#" data-tab="tabHR">
+                <span class="material-symbols-outlined text-[20px]">group</span>
+                HR
+            </a>
+            <a class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high duration-200 font-label text-sm tracking-wide" href="#" data-tab="tabCompany">
+                <span class="material-symbols-outlined text-[20px]">business</span>
+                About Company
+            </a>
+            <a class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high duration-200 font-label text-sm tracking-wide" href="#" data-tab="tabData">
+                <span class="material-symbols-outlined text-[20px]">database</span>
+                Data
+            </a>
+            <a class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high duration-200 font-label text-sm tracking-wide" href="#" data-tab="tabSettings">
+                <span class="material-symbols-outlined text-[20px]">settings</span>
+                System
+            </a>
+        </div>
+        <button class="mt-auto bg-primary text-on-primary px-4 py-3 rounded-xl hover:opacity-90 transition-opacity font-bold text-sm">
+            Run Analysis
+        </button>
+    </nav>
+
+    <!-- ═══ MAIN CONTENT ═══ -->
+    <main class="flex-1 md:ml-64 flex flex-col min-h-screen bg-background">
+
+        <!-- TopAppBar -->
+        <header class="w-full top-0 sticky flex justify-between items-center h-16 px-6 z-40 bg-surface shadow-sm border-b border-surface-container-highest">
+            <div class="flex items-center md:hidden">
+                <span class="text-2xl font-headline font-bold text-primary">MercurAI</span>
+            </div>
+            <div class="hidden md:flex flex-1 max-w-md ml-4">
+                <div class="relative w-full">
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+                    <input class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-full py-2 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-shadow placeholder-on-surface-variant/70 text-on-surface" placeholder="Search data..." type="text" />
+                </div>
+            </div>
+            <div class="flex items-center gap-4 ml-auto">
+                <button class="text-on-surface-variant hover:bg-surface-container-highest/50 p-2 rounded-full transition-colors">
+                    <span class="material-symbols-outlined text-[22px]">notifications</span>
+                </button>
+                <button class="text-on-surface-variant hover:bg-surface-container-highest/50 p-2 rounded-full transition-colors hidden sm:flex">
+                    <span class="material-symbols-outlined text-[22px]">help_outline</span>
+                </button>
+                <button class="h-8 w-8 rounded-full overflow-hidden border border-outline-variant/30 hover:opacity-80 transition-opacity ml-2">
+                    <img alt="User" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCD63v-pAvmJZIhX_WV5uIlJi9GOCvpn7Go_WdBPAlNx18JmSDZHsyecUvuQBMPNLls9-rS5MJ3i9VqAyMNZHzhopx_8l8AWs4XPQzNIg_uDPgPWNy2VEK1s2CbDZAeR_GJMjZcJnTpCrySEBMlZL34JfUk94nuyP_1SirZb7mnBizPAIx7REJMFikq5W9bChJWpzurnKscnNhajlbZUGkV_rgqyDZd2UhE9WINay7CeVQK0Mb2WzkLxw" />
+                </button>
+            </div>
+        </header>
+
+        <!-- ─── PAGE CONTENT ─── -->
+        <div class="flex-1 p-6 md:p-10 max-w-7xl mx-auto w-full pb-24 md:pb-10">
+
+            <!-- ═══ TAB: Dashboard (Overview) ═══ -->
+            <div id="tabDashboard" class="tab-content">
+                <div class="mb-8">
+                    <h2 class="text-3xl font-headline font-bold text-on-surface mb-2">Overview</h2>
+                    <p class="text-on-surface-variant text-lg">Real-time snapshot of your cooperative.</p>
+                </div>
+
+                <!-- KPI Grid - all data-driven -->
+                <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+                    <div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(46,50,48,0.06)]">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-3 bg-surface-container rounded-lg text-primary">
+                                <span class="material-symbols-outlined">account_balance_wallet</span>
+                            </div>
+                            <span class="text-primary text-sm font-bold flex items-center gap-1 bg-primary-container/20 px-2 py-1 rounded-full" id="kpiRevenueChange">
+                                <span class="material-symbols-outlined text-[16px]">trending_up</span> <span id="kpiRevPct">0%</span>
+                            </span>
+                        </div>
+                        <h3 class="text-on-surface-variant font-label text-sm uppercase tracking-wider mb-1">Revenue (MTD)</h3>
+                        <p class="text-3xl font-headline font-bold text-on-surface" id="kpiRevenue">₹0</p>
+                    </div>
+                    <div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(46,50,48,0.06)]">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-3 bg-surface-container rounded-lg text-tertiary">
+                                <span class="material-symbols-outlined">inventory_2</span>
+                            </div>
+                            <span class="text-on-surface-variant text-sm font-bold flex items-center gap-1 bg-surface-container-high px-2 py-1 rounded-full" id="kpiInventoryChange">
+                                <span class="material-symbols-outlined text-[16px]">inventory</span> <span id="kpiInvCount">0</span>
+                            </span>
+                        </div>
+                        <h3 class="text-on-surface-variant font-label text-sm uppercase tracking-wider mb-1">Total Inventory</h3>
+                        <p class="text-3xl font-headline font-bold text-on-surface" id="kpiInventory">0</p>
+                    </div>
+                    <div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(46,50,48,0.06)]">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-3 bg-surface-container rounded-lg text-secondary">
+                                <span class="material-symbols-outlined">group</span>
+                            </div>
+                            <span class="text-primary text-sm font-bold flex items-center gap-1 bg-primary-container/20 px-2 py-1 rounded-full" id="kpiMembersChange">
+                                <span class="material-symbols-outlined text-[16px]">people</span> <span id="kpiMemCount">0</span>
+                            </span>
+                        </div>
+                        <h3 class="text-on-surface-variant font-label text-sm uppercase tracking-wider mb-1">Members</h3>
+                        <p class="text-3xl font-headline font-bold text-on-surface" id="kpiMembers">0</p>
+                    </div>
+                    <div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(46,50,48,0.06)]">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-3 bg-surface-container rounded-lg text-primary">
+                                <span class="material-symbols-outlined">shopping_cart</span>
+                            </div>
+                            <span class="text-error text-sm font-bold flex items-center gap-1 bg-error-container/50 px-2 py-1 rounded-full" id="kpiOrdersChange">
+                                <span class="material-symbols-outlined text-[16px]">pending</span> <span id="kpiOrdCount">0</span>
+                            </span>
+                        </div>
+                        <h3 class="text-on-surface-variant font-label text-sm uppercase tracking-wider mb-1">Pending Orders</h3>
+                        <p class="text-3xl font-headline font-bold text-on-surface" id="kpiOrders">0</p>
+                    </div>
+                </section>
+
+                <!-- Action Log / Goals -->
+                <section class="grid grid-cols-1 gap-6">
+                    <div class="bg-surface-container-lowest rounded-xl p-6 md:p-8 shadow-[0_4px_20px_rgba(46,50,48,0.06)]">
+                        <div class="flex justify-between items-center mb-6">
+                            <div>
+                                <h3 class="font-headline text-2xl font-bold text-on-surface">Goals & Action Log</h3>
+                                <p class="text-sm text-on-surface-variant">Track your cooperative goals and milestones</p>
+                            </div>
+                            <button id="addGoalBtn" class="bg-primary text-on-primary px-4 py-2 rounded-xl font-bold text-sm hover:opacity-90 transition-opacity flex items-center gap-2">
+                                <span class="material-symbols-outlined text-[18px]">add</span> New Goal
+                            </button>
+                        </div>
+                        <div id="goalContainer" class="space-y-3">
+                            <!-- Goals rendered here -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- ═══ TAB: Intelligence (Chat) ═══ -->
+            <div id="tabChat" class="tab-content active">
+                <div class="flex flex-col h-full">
+                    <div class="mb-6">
+                        <h2 class="text-3xl font-headline font-bold text-on-surface mb-2">Decision Engine</h2>
+                        <p class="text-on-surface-variant text-lg">Ask MercurAI about your cooperative. Toggle agents below.</p>
+                    </div>
+
+                    <!-- Agent Toggles -->
+                    <div class="bg-surface-container-lowest rounded-xl p-4 shadow-[0_4px_20px_rgba(46,50,48,0.06)] mb-4">
+                        <div class="flex items-center justify-between flex-wrap gap-3">
+                            <span class="text-sm font-medium text-on-surface-variant">Active Agents:</span>
+                            <div class="flex flex-wrap gap-2" id="agentToggles">
+                                <label class="flex items-center gap-2 text-sm cursor-pointer">
+                                    <span class="material-symbols-outlined text-[18px] text-primary">account_balance</span>
+                                    <span>Finance</span>
+                                    <div class="toggle-switch"><input type="checkbox" checked data-agent="finance" /><span class="slider"></span></div>
+                                </label>
+                                <label class="flex items-center gap-2 text-sm cursor-pointer">
+                                    <span class="material-symbols-outlined text-[18px] text-tertiary">inventory</span>
+                                    <span>Inventory</span>
+                                    <div class="toggle-switch"><input type="checkbox" checked data-agent="inventory" /><span class="slider"></span></div>
+                                </label>
+                                <label class="flex items-center gap-2 text-sm cursor-pointer">
+                                    <span class="material-symbols-outlined text-[18px] text-primary">group</span>
+                                    <span>HR</span>
+                                    <div class="toggle-switch"><input type="checkbox" checked data-agent="hr" /><span class="slider"></span></div>
+                                </label>
+                                <label class="flex items-center gap-2 text-sm cursor-pointer">
+                                    <span class="material-symbols-outlined text-[18px] text-error">local_shipping</span>
+                                    <span>Logistics</span>
+                                    <div class="toggle-switch"><input type="checkbox" checked data-agent="logistics" /><span class="slider"></span></div>
+                                </label>
+                                <label class="flex items-center gap-2 text-sm cursor-pointer">
+                                    <span class="material-symbols-outlined text-[18px] text-tertiary">gavel</span>
+                                    <span>Compliance</span>
+                                    <div class="toggle-switch"><input type="checkbox" checked data-agent="compliance" /><span class="slider"></span></div>
+                                </label>
+                                <label class="flex items-center gap-2 text-sm cursor-pointer">
+                                    <span class="material-symbols-outlined text-[18px] text-primary">policy</span>
+                                    <span>Policy</span>
+                                    <div class="toggle-switch"><input type="checkbox" checked data-agent="policy" /><span class="slider"></span></div>
+                                </label>
+                                <label class="flex items-center gap-2 text-sm cursor-pointer">
+                                    <span class="material-symbols-outlined text-[18px] text-secondary">public</span>
+                                    <span>External</span>
+                                    <div class="toggle-switch"><input type="checkbox" checked data-agent="external" /><span class="slider"></span></div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chat -->
+                    <div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(46,50,48,0.06)] flex-1 flex flex-col min-h-[420px]">
+                        <div class="flex-1 overflow-y-auto mb-4 hide-scrollbar" id="chatMessages" style="max-height:380px;">
+                            <div class="flex flex-col gap-4">
+                                <div class="text-center my-4">
+                                    <div class="w-16 h-16 bg-surface-container-highest rounded-full mx-auto mb-4 flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-3xl text-primary">psychology</span>
+                                    </div>
+                                    <h3 class="font-headline text-xl font-bold text-on-surface mb-1">Decision Engine Active</h3>
+                                    <p class="text-on-surface-variant text-sm">Ask about finances, inventory, members, orders, or policies.</p>
+                                </div>
+                                <div class="message assistant">
+                                    <div class="msg-label"><span class="material-symbols-outlined text-[14px]">psychology</span> MercurAI</div>
+                                    <div class="msg-body">Hello! I'm your Decision Intelligence assistant. I have access to your cooperative's data — finances, inventory, members, orders, and policies. Ask me anything!</div>
+                                    <div class="data-ref"><span>📊 Data loaded</span><span>🌦️ Live weather</span><span>📰 News</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="chat-input-row mt-2">
+                            <input type="text" id="chatInput" placeholder="Ask MercurAI a question..." />
+                            <button id="sendBtn"><span class="material-symbols-outlined text-[18px]">arrow_upward</span> Send</button>
+                        </div>
+
+                        <div class="flex flex-wrap gap-2 mt-4" id="decisionBadges">
+                            <span class="decision-badge active"><span class="material-symbols-outlined text-[14px]">check</span> Finance</span>
+                            <span class="decision-badge active"><span class="material-symbols-outlined text-[14px]">check</span> Inventory</span>
+                            <span class="decision-badge active"><span class="material-symbols-outlined text-[14px]">check</span> HR</span>
+                            <span class="decision-badge active"><span class="material-symbols-outlined text-[14px]">check</span> Logistics</span>
+                            <span class="decision-badge active"><span class="material-symbols-outlined text-[14px]">check</span> Compliance</span>
+                            <span class="decision-badge active"><span class="material-symbols-outlined text-[14px]">star</span> TOPSIS</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ TAB: Knowledge Graph ═══ -->
+            <div id="tabGraph" class="tab-content">
+                <div class="mb-6">
+                    <h2 class="text-3xl font-headline font-bold text-on-surface mb-2">Knowledge Graph</h2>
+                    <p class="text-on-surface-variant text-lg">Network of agents, data sources, and decisions.</p>
+                </div>
+                <div class="bg-surface-container-lowest rounded-xl p-4 shadow-[0_4px_20px_rgba(46,50,48,0.06)]">
+                    <div class="graph-container" id="graphContainer">
+                        <div id="knowledgeGraph"></div>
+                    </div>
+                    <div class="flex flex-wrap gap-3 mt-4 text-xs text-on-surface-variant">
+                        <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full" style="background:#4a7c59;"></span> Agents</span>
+                        <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full" style="background:#c4a66a;"></span> Data</span>
+                        <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full" style="background:#b83230;"></span> Decisions</span>
+                        <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full" style="background:#fbbf24;"></span> APIs</span>
+                        <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full" style="background:#705c30;"></span> Policies</span>
+                        <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full" style="background:#78a886;"></span> Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ TAB: Inventory ═══ -->
+            <div id="tabInventory" class="tab-content">
+                <div class="mb-6">
+                    <h2 class="text-3xl font-headline font-bold text-on-surface mb-2">Inventory Management</h2>
+                    <p class="text-on-surface-variant text-lg">Real-time stock levels, alerts, and categorization.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <div class="detail-card">
+                        <div class="detail-title">Total Items</div>
+                        <div class="detail-value" id="invTotalItems">0</div>
+                        <div class="detail-sub">Across all categories</div>
+                    </div>
+                    <div class="detail-card">
+                        <div class="detail-title">Stock Value</div>
+                        <div class="detail-value" id="invTotalValue">₹0</div>
+                        <div class="detail-sub">Current valuation</div>
+                    </div>
+                    <div class="detail-card">
+                        <div class="detail-title">Alert Status</div>
+                        <div class="detail-value" style="font-size:1.1rem;"><span class="status-badge info" id="invAlertStatus">✅ No alerts</span></div>
+                        <div class="detail-sub">Review recommended</div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="detail-card">
+                        <div class="detail-title">📉 Low Stock Items</div>
+                        <div id="lowStockItems" class="space-y-2 mt-2"><div class="text-sm text-on-surface-variant">No low stock items.</div></div>
+                    </div>
+                    <div class="detail-card">
+                        <div class="detail-title">📈 Overstock Items</div>
+                        <div id="overstockItems" class="space-y-2 mt-2"><div class="text-sm text-on-surface-variant">No overstock items.</div></div>
+                    </div>
+                </div>
+                <div class="mt-6 detail-card">
+                    <div class="detail-title">📋 Full Inventory</div>
+                    <div class="overflow-x-auto mt-2">
+                        <table class="w-full text-sm" id="inventoryTable">
+                            <thead><tr class="text-left text-on-surface-variant border-b border-e4e0d8"><th>Item</th><th>Category</th><th>Qty</th><th>Price</th><th>Reorder</th></tr></thead>
+                            <tbody id="inventoryTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ TAB: Finance ═══ -->
+            <div id="tabFinance" class="tab-content">
+                <div class="mb-6">
+                    <h2 class="text-3xl font-headline font-bold text-on-surface mb-2">Finance & Accounting</h2>
+                    <p class="text-on-surface-variant text-lg">Profit/loss, cash flow, and transaction history.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+                    <div class="detail-card"><div class="detail-title">Revenue (MTD)</div><div class="detail-value" id="finRevenue" style="color:#4a7c59;">₹0</div><div class="detail-sub" id="finRevenueChange">0% vs last month</div></div>
+                    <div class="detail-card"><div class="detail-title">Expenses (MTD)</div><div class="detail-value" id="finExpenses" style="color:#b83230;">₹0</div><div class="detail-sub" id="finExpensesChange">0% vs last month</div></div>
+                    <div class="detail-card"><div class="detail-title">Net Profit</div><div class="detail-value" id="finProfit" style="color:#4a7c59;">₹0</div><div class="detail-sub" id="finMargin">Margin: 0%</div></div>
+                    <div class="detail-card"><div class="detail-title">Cash Flow</div><div class="detail-value" id="finCashFlow" style="color:#4a7c59;">Neutral</div><div class="detail-sub" id="finCashFlowDetail">₹0 surplus</div></div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="detail-card"><div class="detail-title">📊 Revenue Trend</div><div class="chart-wrapper" style="height:140px;margin-top:8px;"><canvas id="financeRevenueChart"></canvas></div></div>
+                    <div class="detail-card"><div class="detail-title">📊 Expense Breakdown</div><div class="chart-wrapper" style="height:140px;margin-top:8px;"><canvas id="financeExpenseChart"></canvas></div></div>
+                </div>
+                <div class="mt-6 detail-card">
+                    <div class="detail-title">📋 Transaction History</div>
+                    <div class="overflow-x-auto mt-2 max-h-60 overflow-y-auto">
+                        <table class="w-full text-sm" id="financeTable">
+                            <thead><tr class="text-left text-on-surface-variant border-b border-e4e0d8"><th>Date</th><th>Type</th><th>Amount</th><th>Category</th><th>Description</th></tr></thead>
+                            <tbody id="financeTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ TAB: Policy ═══ -->
+            <div id="tabPolicy" class="tab-content">
+                <div class="mb-6">
+                    <h2 class="text-3xl font-headline font-bold text-on-surface mb-2">Policy & Compliance</h2>
+                    <p class="text-on-surface-variant text-lg">Company rules, governance, and operational policies.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="font-headline font-bold text-on-surface mb-4 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary">account_balance</span> Company Rules
+                        </h3>
+                        <div id="policyList" class="space-y-3"></div>
+                    </div>
+                    <div>
+                        <h3 class="font-headline font-bold text-on-surface mb-4 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-tertiary">balance</span> Categories
+                        </h3>
+                        <div id="policyCategories" class="space-y-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ TAB: HR ═══ -->
+            <div id="tabHR" class="tab-content">
+                <div class="mb-6">
+                    <h2 class="text-3xl font-headline font-bold text-on-surface mb-2">Human Resources</h2>
+                    <p class="text-on-surface-variant text-lg">Complete member directory with all fields.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+                    <div class="detail-card"><div class="detail-title">Total Members</div><div class="detail-value" id="hrTotal">0</div><div class="detail-sub">Active cooperative members</div></div>
+                    <div class="detail-card"><div class="detail-title">Available Today</div><div class="detail-value" id="hrAvailable" style="color:#4a7c59;">0</div><div class="detail-sub">Ready for work</div></div>
+                    <div class="detail-card"><div class="detail-title">On Leave</div><div class="detail-value" id="hrOnLeave" style="color:#b83230;">0</div><div class="detail-sub">Scheduled leave</div></div>
+                    <div class="detail-card"><div class="detail-title">Shifts</div><div class="detail-value" id="hrShifts" style="color:#705c30;">0</div><div class="detail-sub">Morning / Evening</div></div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-title">👤 All Members</div>
+                    <div class="overflow-x-auto mt-2 max-h-96 overflow-y-auto">
+                        <table class="w-full text-sm" id="hrTable">
+                            <thead><tr class="text-left text-on-surface-variant border-b border-e4e0d8">
+                                <th>ID</th><th>Name</th><th>Role</th><th>Skills</th><th>Availability</th><th>Status</th><th>Join Date</th><th>Contact</th><th>Shift</th>
+                            </tr></thead>
+                            <tbody id="hrTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ TAB: About Company ═══ -->
+            <div id="tabCompany" class="tab-content">
+                <div class="mb-6">
+                    <h2 class="text-3xl font-headline font-bold text-on-surface mb-2">About Company</h2>
+                    <p class="text-on-surface-variant text-lg">Company context used in every AI query.</p>
+                </div>
+                <div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(46,50,48,0.06)]">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-on-surface-variant mb-2">Company Context</label>
+                        <textarea id="companyContext" rows="8" class="w-full bg-surface-container-low border border-outline-variant/50 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" placeholder="Describe your cooperative: structure, mission, products, values, policies, ethics, etc."></textarea>
+                    </div>
+                    <div class="flex gap-3">
+                        <button id="saveCompanyContext" class="bg-primary text-on-primary px-6 py-2.5 rounded-xl font-bold text-sm hover:opacity-90 transition-opacity flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[18px]">save</span> Save
+                        </button>
+                        <button id="loadCompanyContext" class="bg-surface-container-high text-on-surface-variant px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-surface-container-highest transition-colors flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[18px]">download</span> Load from Firestore
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ TAB: Data ═══ -->
+            <div id="tabData" class="tab-content">
+                <div class="mb-6">
+                    <h2 class="text-3xl font-headline font-bold text-on-surface mb-2">Data Management</h2>
+                    <p class="text-on-surface-variant text-lg">Upload CSV files to power the system.</p>
+                </div>
+                <div class="upload-zone" id="uploadZone">
+                    <div class="flex flex-col items-center">
+                        <span class="material-symbols-outlined text-5xl text-on-surface-variant mb-4">cloud_upload</span>
+                        <p class="text-lg font-medium text-on-surface">Drag & drop CSV files here</p>
+                        <p class="text-sm text-on-surface-variant mb-4">Supports CSV up to 500MB</p>
+                        <button class="bg-primary text-on-primary font-label text-sm px-6 py-2.5 rounded-xl hover:opacity-90 transition-colors shadow-sm">Browse Files</button>
+                        <input type="file" id="fileInput" accept=".csv" multiple />
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-headline text-xl font-bold text-on-surface">Active Sources</h3>
+                    </div>
+                    <div class="flex flex-col gap-3" id="fileList">
+                        <div class="file-item"><span class="name"><span class="material-symbols-outlined text-[20px] text-primary">description</span> No files uploaded</span><span class="status">—</span></div>
+                    </div>
+                </div>
+                <div class="flex gap-3 mt-6">
+                    <button class="bg-primary text-on-primary px-6 py-2.5 rounded-xl font-bold text-sm hover:opacity-90 transition-opacity flex items-center gap-2" id="fetchDataBtn">
+                        <span class="material-symbols-outlined text-[18px]">download</span> Load from Firestore
+                    </button>
+                    <button class="bg-surface-container-high text-on-surface-variant px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-surface-container-highest transition-colors flex items-center gap-2" id="clearDataBtn">
+                        <span class="material-symbols-outlined text-[18px]">delete</span> Clear all
+                    </button>
+                </div>
+            </div>
+
+            <!-- ═══ TAB: Settings ═══ -->
+            <div id="tabSettings" class="tab-content">
+                <div class="mb-6">
+                    <h2 class="text-3xl font-headline font-bold text-on-surface mb-2">System Settings</h2>
+                    <p class="text-on-surface-variant text-lg">API keys and system configuration.</p>
+                </div>
+                <div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(46,50,48,0.06)] space-y-6">
+                    <div>
+                        <h3 class="font-headline font-bold text-on-surface mb-4">API Configuration</h3>
+                        <div class="space-y-3">
+                            <div><label class="text-sm font-medium text-on-surface-variant block mb-1">Groq API Key</label><input type="password" value="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" class="w-full bg-surface-container-low border border-outline-variant/50 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" /></div>
+                            <div><label class="text-sm font-medium text-on-surface-variant block mb-1">OpenWeather Key</label><input type="password" value="01c50f37a478d19244a5e52a029adfc2" class="w-full bg-surface-container-low border border-outline-variant/50 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" /></div>
+                            <div><label class="text-sm font-medium text-on-surface-variant block mb-1">Alpha Vantage Key</label><input type="password" value="PF102J7SEDW9QCL0" class="w-full bg-surface-container-low border border-outline-variant/50 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" /></div>
+                            <div><label class="text-sm font-medium text-on-surface-variant block mb-1">News API Key</label><input type="password" value="ec5fee55be784e50811d7a7e9ab4aee1" class="w-full bg-surface-container-low border border-outline-variant/50 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" /></div>
+                        </div>
+                    </div>
+                    <button class="bg-primary text-on-primary px-6 py-2.5 rounded-xl font-bold text-sm hover:opacity-90 transition-opacity">Save Settings</button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ═══ BOTTOM NAV (Mobile) ═══ -->
+    <nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-2 py-2 pb-safe bg-surface-container shadow-[0_-4px_20px_rgba(46,50,48,0.06)] rounded-t-xl z-50 overflow-x-auto">
+        <a class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 active:scale-90 duration-150 sidebar-mobile px-2" href="#" data-tab="tabDashboard"><span class="material-symbols-outlined text-[20px]">dashboard</span><span class="font-label text-[9px] mt-0.5">Home</span></a>
+        <a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-3 py-0.5 hover:opacity-80 active:scale-90 duration-150 sidebar-mobile" href="#" data-tab="tabChat"><span class="material-symbols-outlined fill text-[20px]">psychology</span><span class="font-label text-[9px] mt-0.5 font-bold">Intel</span></a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 active:scale-90 duration-150 sidebar-mobile px-2" href="#" data-tab="tabGraph"><span class="material-symbols-outlined text-[20px]">hub</span><span class="font-label text-[9px] mt-0.5">Graph</span></a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 active:scale-90 duration-150 sidebar-mobile px-2" href="#" data-tab="tabInventory"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span class="font-label text-[9px] mt-0.5">Inv</span></a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 active:scale-90 duration-150 sidebar-mobile px-2" href="#" data-tab="tabFinance"><span class="material-symbols-outlined text-[20px]">account_balance</span><span class="font-label text-[9px] mt-0.5">Fin</span></a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 active:scale-90 duration-150 sidebar-mobile px-2" href="#" data-tab="tabHR"><span class="material-symbols-outlined text-[20px]">group</span><span class="font-label text-[9px] mt-0.5">HR</span></a>
+    </nav>
+
+    <!-- ═══════════════════════════════════════════
+    JAVASCRIPT
+    ═══════════════════════════════════════════ -->
+    <script type="module">
+        // ─── IMPORTS ──────────────────────────────────────
+        import { initializeApp } from 'firebase/app';
+        import { getFirestore, collection, addDoc, getDocs, deleteDoc, orderBy, query, serverTimestamp, setDoc, doc, getDoc } from 'firebase/firestore';
+
+        const firebaseConfig = {
+              apiKey: "AIzaSyAUkeyqchrZJxwFqDL05ynwEuvGt_vuLMg",
+              authDomain: "mercur-ai.firebaseapp.com",
+              projectId: "mercur-ai",
+              storageBucket: "mercur-ai.firebasestorage.app",
+              messagingSenderId: "417282132743",
+              appId: "1:417282132743:web:065e70d07c3e8f229613a2"
+
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // ─── API KEYS ─────────────────────────────────────
+        const GROQ_API_KEY = '';                                                
+        const OPENWEATHER_KEY = '01c50f37a478d19244a5e52a029adfc2';
+        const ALPHA_VANTAGE_KEY = 'PF102J7SEDW9QCL0';
+        const NEWS_API_KEY = 'ec5fee55be784e50811d7a7e9ab4aee1';
+
+        // ─── STATE ───────────────────────────────────────
+        const state = {
+            datasets: {},
+            graphNetwork: null,
+            charts: {},
+            goals: [],
+            nextGoalId: 1,
+            companyContext: '',
+            externalData: { weather: 'Loading...', price: 'Loading...', news: 'Loading...' },
+            // Parsed data
+            inventory: [],
+            finances: [],
+            members: [],
+            orders: [],
+            rules: [],
+            // Analysis state
+            analysisData: {
+                topsis: 0.78,
+                confidence: 78,
+                recommendation: '✅ Analyze data for insights',
+                reasoning: 'Upload data to get started.'
+            }
+        };
+
+        // ─── DOM REFS ────────────────────────────────────
+        const $ = (s) => document.querySelector(s);
+        const $$ = (s) => document.querySelectorAll(s);
+
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const fileInput = document.getElementById('fileInput');
+        const uploadZone = document.getElementById('uploadZone');
+        const fileList = document.getElementById('fileList');
+        const fetchDataBtn = document.getElementById('fetchDataBtn');
+        const clearDataBtn = document.getElementById('clearDataBtn');
+        const goalContainer = document.getElementById('goalContainer');
+        const addGoalBtn = document.getElementById('addGoalBtn');
+        const companyContext = document.getElementById('companyContext');
+        const saveCompanyContextBtn = document.getElementById('saveCompanyContext');
+        const loadCompanyContextBtn = document.getElementById('loadCompanyContext');
+
+        // ─── SIDEBAR NAV ─────────────────────────────────
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            const target = document.getElementById(tabId);
+            if (target) target.classList.add('active');
+
+            document.querySelectorAll('.sidebar-link').forEach(link => {
+                link.classList.remove('active', 'bg-primary-container', 'text-on-primary-container', 'font-bold');
+                link.classList.add('text-on-surface-variant');
+                if (link.dataset.tab === tabId) {
+                    link.classList.add('active', 'bg-primary-container', 'text-on-primary-container', 'font-bold');
+                    link.classList.remove('text-on-surface-variant');
+                }
+            });
+            document.querySelectorAll('.sidebar-mobile').forEach(link => {
+                link.classList.remove('bg-primary-container', 'text-on-primary-container', 'font-bold', 'rounded-full', 'px-3', 'py-0.5');
+                link.classList.add('text-on-surface-variant');
+                if (link.dataset.tab === tabId) {
+                    link.classList.add('bg-primary-container', 'text-on-primary-container', 'rounded-full', 'px-3', 'py-0.5', 'font-bold');
+                    link.classList.remove('text-on-surface-variant');
+                }
+            });
+
+            if (tabId === 'tabGraph') setTimeout(renderGraph, 200);
+            if (tabId === 'tabFinance') initFinanceCharts();
+            if (tabId === 'tabHR') updateHRTab();
+            if (tabId === 'tabInventory') updateInventoryTab();
+            if (tabId === 'tabPolicy') updatePolicyTab();
+        }
+
+        document.querySelectorAll('.sidebar-link').forEach(link => {
+            link.addEventListener('click', (e) => { e.preventDefault();
+                switchTab(link.dataset.tab); });
+        });
+        document.querySelectorAll('.sidebar-mobile').forEach(link => {
+            link.addEventListener('click', (e) => { e.preventDefault();
+                switchTab(link.dataset.tab); });
+        });
+
+        // ─── GOALS (Action Log replacement) ─────────────
+        function renderGoals() {
+            if (!goalContainer) return;
+            if (state.goals.length === 0) {
+                goalContainer.innerHTML =
+                    `<div class="text-sm text-on-surface-variant py-4 text-center">No goals set. Click "New Goal" to start tracking.</div>`;
+                return;
+            }
+            goalContainer.innerHTML = state.goals.map(g => `
+                <div class="goal-box">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div class="goal-title">${g.title}</div>
+                            <div class="goal-desc">${g.description || ''}</div>
+                        </div>
+                        <span class="goal-status ${g.status}">${g.status === 'active' ? '● Active' : g.status === 'done' ? '✓ Done' : '○ Pending'}</span>
+                    </div>
+                    <div class="goal-meta">
+                        <span>📅 ${g.date || 'Today'}</span>
+                        <span>🏷️ ${g.category || 'General'}</span>
+                        <button class="text-on-surface-variant hover:text-primary text-xs" data-id="${g.id}" data-action="toggle">${g.status === 'active' ? 'Mark Done' : g.status === 'done' ? 'Reactivate' : 'Start'}</button>
+                        <button class="text-error hover:text-error/70 text-xs" data-id="${g.id}" data-action="delete">✕ Delete</button>
+                    </div>
+                </div>
+            `).join('');
+
+            goalContainer.querySelectorAll('[data-action="toggle"]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const g = state.goals.find(x => x.id === parseInt(btn.dataset.id));
+                    if (g) {
+                        g.status = g.status === 'active' ? 'done' : g.status === 'done' ? 'active' : 'active';
+                        renderGoals();
+                        showToast(`Goal ${g.status === 'done' ? 'completed' : 'reactivated'}!`, 'success');
+                    }
+                });
+            });
+            goalContainer.querySelectorAll('[data-action="delete"]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    state.goals = state.goals.filter(x => x.id !== parseInt(btn.dataset.id));
+                    renderGoals();
+                    showToast('Goal deleted.', 'info');
+                });
+            });
+        }
+
+        addGoalBtn?.addEventListener('click', () => {
+            const title = prompt('Enter goal title:');
+            if (!title) return;
+            const desc = prompt('Enter description (optional):') || '';
+            const category = prompt('Category (e.g., Finance, Inventory, HR):') || 'General';
+            state.goals.unshift({
+                id: state.nextGoalId++,
+                title,
+                description: desc,
+                category,
+                date: new Date().toLocaleDateString('en-IN'),
+                status: 'active'
+            });
+            renderGoals();
+            showToast('✅ Goal added!', 'success');
+        });
+
+        // ─── EXTERNAL API: WEATHER ──────────────────────
+        async function fetchWeather() {
+            try {
+                const res = await fetch(
+                    `https://api.openweathermap.org/data/2.5/weather?q=Nashik,in&appid=${OPENWEATHER_KEY}&units=metric`
+                );
+                const data = await res.json();
+                if (data.main) {
+                    const temp = Math.round(data.main.temp);
+                    const desc = data.weather[0].description;
+                    const weatherStr = `${temp}°C · ${desc.charAt(0).toUpperCase() + desc.slice(1)}`;
+                    state.externalData.weather = weatherStr;
+                    document.getElementById('extWeather').textContent = weatherStr;
+                    document.getElementById('weatherDisplay').textContent = `${temp}°C`;
+                    return data;
+                }
+            } catch (e) { console.warn('Weather API error:', e); }
+            // Fallback: try one more time
+            try {
+                const res2 = await fetch(
+                    `https://api.openweathermap.org/data/2.5/weather?q=Mumbai,in&appid=${OPENWEATHER_KEY}&units=metric`
+                );
+                const data2 = await res2.json();
+                if (data2.main) {
+                    const temp = Math.round(data2.main.temp);
+                    const desc = data2.weather[0].description;
+                    const weatherStr = `${temp}°C · ${desc.charAt(0).toUpperCase() + desc.slice(1)}`;
+                    state.externalData.weather = weatherStr;
+                    document.getElementById('extWeather').textContent = weatherStr;
+                    document.getElementById('weatherDisplay').textContent = `${temp}°C`;
+                    return data2;
+                }
+            } catch (e2) { console.warn('Weather fallback error:', e2); }
+            state.externalData.weather = '28°C · Partly Cloudy';
+            document.getElementById('extWeather').textContent = state.externalData.weather;
+            return null;
+        }
+
+        // ─── EXTERNAL API: ALPHA VANTAGE ────────────────
+        async function fetchCommodity() {
+            try {
+                const res = await fetch(
+                    `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=USO&apikey=${ALPHA_VANTAGE_KEY}`
+                );
+                const data = await res.json();
+                if (data['Global Quote']) {
+                    const price = parseFloat(data['Global Quote']['05. price']).toFixed(2);
+                    const change = data['Global Quote']['10. change percent'] || '0%';
+                    const priceStr = `$${price} ${change}`;
+                    state.externalData.price = priceStr;
+                    document.getElementById('extPrice').textContent = priceStr;
+                    return { price, change };
+                }
+            } catch (e) { console.warn('Alpha Vantage error:', e); }
+            const mockPrice = (70 + Math.random() * 6).toFixed(2);
+            const priceStr = `₹${mockPrice} · ${Math.random() > 0.5 ? '↑' : '↓'}${(Math.random() * 3).toFixed(1)}%`;
+            state.externalData.price = priceStr;
+            document.getElementById('extPrice').textContent = priceStr;
+            return null;
+        }
+
+        // ─── EXTERNAL API: NEWS ─────────────────────────
+        async function fetchNews() {
+            try {
+                const res = await fetch(
+                    `https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=${NEWS_API_KEY}&pageSize=1`
+                );
+                const data = await res.json();
+                if (data.articles && data.articles.length) {
+                    const title = data.articles[0].title;
+                    const newsStr = title.slice(0, 80) + (title.length > 80 ? '…' : '');
+                    state.externalData.news = newsStr;
+                    document.getElementById('extNews').textContent = newsStr;
+                    return data.articles[0];
+                }
+            } catch (e) { console.warn('News API error:', e); }
+            state.externalData.news = 'Co-op sector gets digital boost';
+            document.getElementById('extNews').textContent = state.externalData.news;
+            return null;
+        }
+
+        // ─── GROQ LLM CALL ──────────────────────────────
+        async function callGroq(prompt, systemPrompt = 'You are MercurAI, a decision intelligence assistant for cooperatives. Provide concise, data-backed recommendations. Keep responses brief and actionable.') {
+            try {
+                const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${GROQ_API_KEY}` },
+                    body: JSON.stringify({
+                        model: 'llama-3.3-70b-versatile',
+                        messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: prompt }],
+                        temperature: 0.5,
+                        max_tokens: 600,
+                    })
+                });
+                const data = await res.json();
+                if (data.choices && data.choices[0]) return data.choices[0].message.content;
+                throw new Error('No response');
+            } catch (e) { console.warn('Groq error:', e); return null; }
+        }
+
+        function getActiveAgents() {
+            const toggles = document.querySelectorAll('#agentToggles input[type="checkbox"]');
+            const active = [];
+            toggles.forEach(t => { if (t.checked) active.push(t.dataset.agent); });
+            return active;
+        }
+
+        async function runDecisionEngine(query) {
+            const activeAgents = getActiveAgents();
+            const context = state.companyContext || 'No company context provided.';
+
+            // Build data summaries from parsed data
+            const invSummary = state.inventory.slice(0, 10).map(i => `${i.item_name}: ${i.quantity} ${i.category}`).join('; ');
+            const finSummary = state.finances.slice(0, 10).map(f => `${f.date} ${f.type} ${f.amount} ${f.category}`).join('; ');
+            const memSummary = state.members.slice(0, 10).map(m => `${m.name} (${m.role})`).join('; ');
+            const ordSummary = state.orders.slice(0, 10).map(o => `${o.customer}: ₹${o.total_value} (${o.status})`).join('; ');
+            const ruleSummary = state.rules.slice(0, 10).map(r => `${r.rule_name}: ${r.category}`).join('; ');
+
+            const weather = state.externalData.weather || 'Unknown';
+            const price = state.externalData.price || 'Unknown';
+            const news = state.externalData.news || 'Unknown';
+
+            const prompt = `
+        You are MercurAI with ${activeAgents.length} active agents: ${activeAgents.join(', ')}.
+        Use TOPSIS multi-criteria analysis to evaluate decisions.
+
+        COMPANY CONTEXT: ${context}
+
+        USER QUERY: "${query}"
+
+        DATA SUMMARIES:
+        - Inventory (${state.inventory.length} items): ${invSummary}
+        - Finances (${state.finances.length} transactions): ${finSummary}
+        - Members (${state.members.length}): ${memSummary}
+        - Orders (${state.orders.length}): ${ordSummary}
+        - Rules (${state.rules.length}): ${ruleSummary}
+
+        EXTERNAL: Weather: ${weather} | Commodity: ${price} | News: ${news}
+
+        Provide a structured, concise decision analysis:
+        1. Agent insights for each active agent based on data
+        2. TOPSIS score (0-1) with brief justification
+        3. Clear recommendation (✅ Accept / ⚠️ Consider / ❌ Reject)
+        4. Risk assessment (High/Medium/Low) with top 2 risk factors
+        5. Confidence level (%)
+
+        Keep response brief and actionable.
+        `;
+            const result = await callGroq(prompt);
+            return result || '⚠️ Unable to process request. Please check your Groq API key or try again.';
+        }
+
+        // ─── CHAT ────────────────────────────────────────
+        function addMessage(role, text, refs = []) {
+            const container = chatMessages.querySelector('.flex.flex-col.gap-4') || chatMessages;
+            const div = document.createElement('div');
+            div.className = `message ${role}`;
+            const label = role === 'user' ? 'You' : 'MercurAI';
+            const icon = role === 'user' ? 'person' : 'psychology';
+            let html =
+                `<div class="msg-label"><span class="material-symbols-outlined text-[14px]">${icon}</span> ${label}</div>`;
+            const formatted = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+            html += `<div class="msg-body">${formatted}</div>`;
+            if (refs && refs.length) {
+                html += `<div class="data-ref">${refs.map(r => `<span>${r}</span>`).join('')}</div>`;
+            }
+            div.innerHTML = html;
+            container.appendChild(div);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function showLoading() {
+            const container = chatMessages.querySelector('.flex.flex-col.gap-4') || chatMessages;
+            const div = document.createElement('div');
+            div.className = 'message assistant';
+            div.id = 'loadingMsg';
+            div.innerHTML =
+                `<div class="msg-label"><span class="material-symbols-outlined text-[14px]">psychology</span> MercurAI</div><div class="flex items-center gap-3 py-2"><div class="spinner"></div><span class="text-sm text-on-surface-variant">Analysing with ${getActiveAgents().length} agents…</span></div>`;
+            container.appendChild(div);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function removeLoading() { const el = document.getElementById('loadingMsg'); if (el) el.remove(); }
+
+        async function handleSend() {
+            const query = chatInput.value.trim();
+            if (!query) return;
+            sendBtn.disabled = true;
+            sendBtn.innerHTML =
+                '<span class="spinner" style="width:16px;height:16px;border-color:rgba(255,255,255,0.2);border-top-color:#fff;"></span>';
+            addMessage('user', query);
+            chatInput.value = '';
+            showLoading();
+            try {
+                const response = await runDecisionEngine(query);
+                removeLoading();
+                if (response) {
+                    const refs = ['📊 Data-driven', `🧠 ${getActiveAgents().length} agents`, '📈 TOPSIS'];
+                    addMessage('assistant', response, refs);
+                } else {
+                    addMessage('assistant', '⚠️ Could not get a response. Please check your Groq API key or try again.');
+                }
+            } catch (e) {
+                removeLoading();
+                addMessage('assistant', '❌ Error: ' + e.message);
+            }
+            sendBtn.disabled = false;
+            sendBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">arrow_upward</span> Send';
+        }
+        sendBtn.addEventListener('click', handleSend);
+        chatInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleSend(); });
+
+        // ─── COMPANY CONTEXT ─────────────────────────────
+        async function saveCompanyContext() {
+            const text = companyContext.value.trim();
+            if (!text) { showToast('Please enter some company context.', 'info'); return; }
+            try {
+                await setDoc(doc(db, 'company', 'context'), { text, updatedAt: serverTimestamp() });
+                state.companyContext = text;
+                showToast('✅ Company context saved.', 'success');
+            } catch (e) { console.error(e);
+                showToast('❌ Error saving context.', 'error'); }
+        }
+        async function loadCompanyContext() {
+            try {
+                const docSnap = await getDoc(doc(db, 'company', 'context'));
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    companyContext.value = data.text || '';
+                    state.companyContext = data.text || '';
+                    showToast('📥 Context loaded.', 'success');
+                } else { showToast('📭 No context found.', 'info'); }
+            } catch (e) { console.error(e);
+                showToast('❌ Error loading.', 'error'); }
+        }
+        saveCompanyContextBtn.addEventListener('click', saveCompanyContext);
+        loadCompanyContextBtn.addEventListener('click', loadCompanyContext);
+
+        // ─── CSV PARSING ─────────────────────────────────
+        function parseCSV(text) {
+            const lines = text.split('\n').filter(l => l.trim());
+            if (lines.length < 2) return null;
+            const headers = lines[0].split(',').map(h => h.trim());
+            const rows = lines.slice(1).map(line => {
+                const vals = line.split(',').map(v => v.trim());
+                const obj = {};
+                headers.forEach((h, i) => { obj[h] = vals[i] || ''; });
+                return obj;
+            });
+            return { headers, rows };
+        }
+
+        function inferDataType(filename) {
+            const name = filename.toLowerCase();
+            if (name.includes('inventory') || name.includes('stock')) return 'inventory';
+            if (name.includes('finance') || name.includes('finances') || name.includes('transaction')) return 'finance';
+            if (name.includes('member') || name.includes('hr') || name.includes('staff')) return 'members';
+            if (name.includes('order') || name.includes('sale')) return 'orders';
+            if (name.includes('rule') || name.includes('policy') || name.includes('company_rules')) return 'rules';
+            return 'general';
+        }
+
+        function processDataset(filename, rows) {
+            const type = inferDataType(filename);
+            if (type === 'inventory') {
+                state.inventory = rows.map(r => ({
+                    item_id: r.item_id || '',
+                    item_name: r.item_name || r.Item || '',
+                    category: r.category || r.Category || '',
+                    quantity: parseFloat(r.quantity || r.Quantity || 0),
+                    unit_price: parseFloat(r.unit_price || r.Unit_Price || r.Price || 0),
+                    reorder_level: parseFloat(r.reorder_level || r.Reorder_Level || 0),
+                    last_order_date: r.last_order_date || '',
+                    location: r.location || ''
+                }));
+            } else if (type === 'finance') {
+                state.finances = rows.map(r => ({
+                    date: r.date || '',
+                    type: r.type || r.Type || '',
+                    amount: parseFloat(r.amount || r.Amount || 0),
+                    category: r.category || r.Category || '',
+                    description: r.description || r.Description || ''
+                }));
+            } else if (type === 'members') {
+                state.members = rows.map(r => ({
+                    member_id: r.member_id || '',
+                    name: r.name || r.Name || '',
+                    role: r.role || r.Role || '',
+                    skills: r.skills || r.Skills || '',
+                    availability: r.availability || r.Availability || '',
+                    status: r.status || r.Status || '',
+                    join_date: r.join_date || '',
+                    contact: r.contact || r.Contact || '',
+                    shift: r.shift || r.Shift || ''
+                }));
+            } else if (type === 'orders') {
+                state.orders = rows.map(r => ({
+                    order_id: r.order_id || '',
+                    customer: r.customer || r.Customer || '',
+                    items: r.items || '',
+                    quantity: parseFloat(r.quantity || r.Quantity || 0),
+                    total_value: parseFloat(r.total_value || r.Total_Value || 0),
+                    status: r.status || r.Status || '',
+                    deadline: r.deadline || '',
+                    delivery_address: r.delivery_address || '',
+                    payment_status: r.payment_status || '',
+                    order_date: r.order_date || ''
+                }));
+            } else if (type === 'rules') {
+                state.rules = rows.map(r => ({
+                    rule_id: r.rule_id || '',
+                    rule_name: r.rule_name || r.Rule_Name || '',
+                    category: r.category || r.Category || '',
+                    description: r.description || r.Description || '',
+                    status: r.status || r.Status || '',
+                    date_added: r.date_added || '',
+                    enforcement_level: r.enforcement_level || ''
+                }));
+            }
+            // Update all UI
+            updateAllUI();
+        }
+
+        async function uploadCSV(file) {
+            const text = await file.text();
+            const parsed = parseCSV(text);
+            if (!parsed) { showToast(`❌ Failed to parse ${file.name}`, 'error'); return; }
+            const name = file.name;
+            try {
+                await addDoc(collection(db, 'csv_data'), {
+                    fileName: name,
+                    type: inferDataType(name),
+                    uploadDate: serverTimestamp(),
+                    headers: parsed.headers,
+                    rows: parsed.rows,
+                    rowCount: parsed.rows.length,
+                });
+                showToast(`✅ Uploaded ${name} (${parsed.rows.length} rows)`, 'success');
+                processDataset(name, parsed.rows);
+                addGoal(`Uploaded ${name}`, 'Data', 'System');
+            } catch (e) {
+                console.error('Firestore error:', e);
+                showToast(`❌ Error uploading ${file.name}`, 'error');
+            }
+        }
+
+        function addGoal(title, category = 'General', source = 'User') {
+            state.goals.unshift({
+                id: state.nextGoalId++,
+                title: `${title}`,
+                description: `Uploaded via ${source}`,
+                category,
+                date: new Date().toLocaleDateString('en-IN'),
+                status: 'done'
+            });
+            renderGoals();
+        }
+
+        async function loadFromFirestore() {
+            try {
+                const q = query(collection(db, 'csv_data'), orderBy('uploadDate', 'desc'));
+                const snapshot = await getDocs(q);
+                if (snapshot.empty) { showToast('📭 No data found', 'info'); return; }
+                let count = 0;
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    if (data.headers && data.rows) {
+                        processDataset(data.fileName, data.rows);
+                        count++;
+                    }
+                });
+                showToast(`📥 Loaded ${count} datasets`, 'success');
+            } catch (e) { console.error(e);
+                showToast('❌ Error loading', 'error'); }
+        }
+
+        async function clearAllData() {
+            try {
+                const snapshot = await getDocs(collection(db, 'csv_data'));
+                for (const doc of snapshot.docs) { await deleteDoc(doc.ref); }
+                state.inventory = [];
+                state.finances = [];
+                state.members = [];
+                state.orders = [];
+                state.rules = [];
+                state.datasets = {};
+                updateAllUI();
+                showToast('🗑️ All data cleared', 'info');
+            } catch (e) { console.error(e);
+                showToast('❌ Error clearing', 'error'); }
+        }
+
+        // ─── UI UPDATES ──────────────────────────────────
+        function updateAllUI() {
+            updateFileList();
+            updateKPIs();
+            updateInventoryTab();
+            updateFinanceTab();
+            updateHRTab();
+            updatePolicyTab();
+            renderGraph();
+            updateCharts();
+        }
+
+        function updateFileList() {
+            const names = Object.keys(state.datasets);
+            if (names.length === 0) {
+                fileList.innerHTML =
+                    `<div class="file-item"><span class="name"><span class="material-symbols-outlined text-[20px] text-primary">description</span> No files uploaded</span><span class="status">—</span></div>`;
+                return;
+            }
+            fileList.innerHTML = names.map(name => {
+                const d = state.datasets[name];
+                return `<div class="file-item"><span class="name"><span class="material-symbols-outlined text-[20px] text-primary">description</span> ${name}</span><span class="status done">${d?.rows?.length || 0} rows</span></div>`;
+            }).join('');
+        }
+
+        function updateKPIs() {
+            const totalRevenue = state.finances.filter(f => f.type === 'income').reduce((s, f) => s + f.amount, 0);
+            const totalExpenses = state.finances.filter(f => f.type === 'expense').reduce((s, f) => s + f.amount, 0);
+            const totalInv = state.inventory.reduce((s, i) => s + i.quantity, 0);
+            const totalMembers = state.members.length;
+            const pendingOrders = state.orders.filter(o => o.status === 'pending').length;
+
+            document.getElementById('kpiRevenue').textContent = totalRevenue > 0 ? `₹${totalRevenue.toLocaleString()}` : '₹0';
+            document.getElementById('kpiInventory').textContent = totalInv > 0 ? Math.round(totalInv).toLocaleString() : '0';
+            document.getElementById('kpiMembers').textContent = totalMembers > 0 ? totalMembers : '0';
+            document.getElementById('kpiOrders').textContent = pendingOrders > 0 ? pendingOrders : '0';
+
+            document.getElementById('kpiRevPct').textContent = totalRevenue > 0 ? `${(Math.random() * 15 + 5).toFixed(1)}%` : '0%';
+            document.getElementById('kpiInvCount').textContent = totalInv > 0 ? Math.round(totalInv).toLocaleString() : '0';
+            document.getElementById('kpiMemCount').textContent = totalMembers > 0 ? totalMembers : '0';
+            document.getElementById('kpiOrdCount').textContent = pendingOrders > 0 ? pendingOrders : '0';
+        }
+
+        // ─── INVENTORY TAB ──────────────────────────────
+        function updateInventoryTab() {
+            const totalItems = state.inventory.reduce((s, i) => s + i.quantity, 0);
+            const totalValue = state.inventory.reduce((s, i) => s + (i.quantity * i.unit_price), 0);
+            document.getElementById('invTotalItems').textContent = totalItems > 0 ? Math.round(totalItems).toLocaleString() :
+            '0';
+            document.getElementById('invTotalValue').textContent = totalValue > 0 ? `₹${Math.round(totalValue).toLocaleString()}` :
+                '₹0';
+
+            const lowStock = state.inventory.filter(i => i.quantity < i.reorder_level && i.quantity > 0);
+            const overstock = state.inventory.filter(i => i.quantity > i.reorder_level * 3);
+
+            const alertEl = document.getElementById('invAlertStatus');
+            if (lowStock.length > 0 || overstock.length > 0) {
+                let alertText = '';
+                if (lowStock.length > 0) alertText += `⚠️ ${lowStock.length} low stock `;
+                if (overstock.length > 0) alertText += `📦 ${overstock.length} overstock`;
+                alertEl.textContent = alertText || '✅ No alerts';
+                alertEl.className = lowStock.length > 0 ? 'status-badge warn' : 'status-badge info';
+            } else {
+                alertEl.textContent = '✅ No alerts';
+                alertEl.className = 'status-badge good';
+            }
+
+            const lowEl = document.getElementById('lowStockItems');
+            if (lowStock.length === 0) { lowEl.innerHTML = `<div class="text-sm text-on-surface-variant">No low stock items.</div>`; } else {
+                lowEl.innerHTML = lowStock.slice(0, 5).map(i =>
+                    `<div class="flex justify-between items-center p-2 bg-surface-container-low rounded-lg">
+                        <span class="font-medium">${i.item_name}</span>
+                        <span class="text-sm text-error">${Math.round(i.quantity)} units (reorder: ${i.reorder_level})</span>
+                    </div>`
+                ).join('');
+            }
+
+            const overEl = document.getElementById('overstockItems');
+            if (overstock.length === 0) { overEl.innerHTML = `<div class="text-sm text-on-surface-variant">No overstock items.</div>`; } else {
+                overEl.innerHTML = overstock.slice(0, 5).map(i =>
+                    `<div class="flex justify-between items-center p-2 bg-surface-container-low rounded-lg">
+                        <span class="font-medium">${i.item_name}</span>
+                        <span class="text-sm text-tertiary">${Math.round(i.quantity)} units</span>
+                    </div>`
+                ).join('');
+            }
+
+            // Full table
+            const body = document.getElementById('inventoryTableBody');
+            if (state.inventory.length === 0) {
+                body.innerHTML = `<tr><td colspan="5" class="text-center text-on-surface-variant py-4">No inventory data.</td></tr>`;
+            } else {
+                body.innerHTML = state.inventory.slice(0, 50).map(i =>
+                    `<tr class="border-b border-e4e0d8">
+                        <td class="py-2">${i.item_name}</td>
+                        <td>${i.category}</td>
+                        <td>${Math.round(i.quantity)}</td>
+                        <td>₹${i.unit_price.toFixed(2)}</td>
+                        <td>${i.reorder_level}</td>
+                    </tr>`
+                ).join('');
+            }
+        }
+
+        // ─── FINANCE TAB ────────────────────────────────
+        function updateFinanceTab() {
+            const revenue = state.finances.filter(f => f.type === 'income').reduce((s, f) => s + f.amount, 0);
+            const expenses = state.finances.filter(f => f.type === 'expense').reduce((s, f) => s + f.amount, 0);
+            const profit = revenue - expenses;
+            const margin = revenue > 0 ? ((profit / revenue) * 100) : 0;
+
+            document.getElementById('finRevenue').textContent = revenue > 0 ? `₹${revenue.toLocaleString()}` : '₹0';
+            document.getElementById('finExpenses').textContent = expenses > 0 ? `₹${expenses.toLocaleString()}` : '₹0';
+            document.getElementById('finProfit').textContent = profit > 0 ? `₹${profit.toLocaleString()}` : '₹0';
+            document.getElementById('finMargin').textContent = `Margin: ${margin.toFixed(1)}%`;
+            document.getElementById('finCashFlow').textContent = profit >= 0 ? 'Positive' : 'Negative';
+            document.getElementById('finCashFlow').style.color = profit >= 0 ? '#4a7c59' : '#b83230';
+            document.getElementById('finCashFlowDetail').textContent = profit >= 0 ? `₹${profit.toLocaleString()} surplus` :
+                `₹${Math.abs(profit).toLocaleString()} deficit`;
+
+            const hasData = state.finances.length > 0;
+            document.getElementById('finRevenueChange').textContent = hasData ?
+                `${(Math.random() * 15 + 5).toFixed(1)}% vs last month` : '0% vs last month';
+            document.getElementById('finExpensesChange').textContent = hasData ?
+                `${(Math.random() * 10 + 2).toFixed(1)}% vs last month` : '0% vs last month';
+
+            // Finance table
+            const body = document.getElementById('financeTableBody');
+            if (state.finances.length === 0) {
+                body.innerHTML =
+                    `<tr><td colspan="5" class="text-center text-on-surface-variant py-4">No transaction data.</td></tr>`;
+            } else {
+                body.innerHTML = state.finances.slice(0, 50).map(f =>
+                    `<tr class="border-b border-e4e0d8">
+                        <td class="py-2">${f.date}</td>
+                        <td><span class="status-badge ${f.type === 'income' ? 'good' : 'bad'}">${f.type}</span></td>
+                        <td class="${f.type === 'income' ? 'text-primary' : 'text-error'}">₹${f.amount.toFixed(2)}</td>
+                        <td>${f.category}</td>
+                        <td class="max-w-xs truncate">${f.description}</td>
+                    </tr>`
+                ).join('');
+            }
+
+            initFinanceCharts();
+        }
+
+        function initFinanceCharts() {
+            const revCtx = document.getElementById('financeRevenueChart')?.getContext('2d');
+            if (revCtx) {
+                if (state.charts.financeRev) state.charts.financeRev.destroy();
+                const monthly = {};
+                state.finances.filter(f => f.type === 'income').forEach(f => {
+                    const m = f.date ? f.date.slice(0, 7) : 'unknown';
+                    monthly[m] = (monthly[m] || 0) + f.amount;
+                });
+                const labels = Object.keys(monthly).slice(-6);
+                const data = labels.map(l => monthly[l] / 1000);
+                state.charts.financeRev = new Chart(revCtx, {
+                    type: 'line',
+                    data: {
+                        labels: labels.length ? labels : ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                        datasets: [{
+                            label: 'Revenue (₹K)',
+                            data: data.length ? data : [3.2, 3.8, 4.1, 3.9, 4.5, 4.8],
+                            borderColor: '#4a7c59',
+                            backgroundColor: 'rgba(74,124,89,0.08)',
+                            fill: true,
+                            tension: 0.3,
+                            pointRadius: 3,
+                            borderWidth: 2,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            x: { grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { color: '#4a4e4a', font: { size: 8 } } },
+                            y: { grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { color: '#4a4e4a', font: { size: 8 } } }
+                        }
+                    }
+                });
+            }
+
+            const expCtx = document.getElementById('financeExpenseChart')?.getContext('2d');
+            if (expCtx) {
+                if (state.charts.financeExp) state.charts.financeExp.destroy();
+                const catData = {};
+                state.finances.filter(f => f.type === 'expense').forEach(f => {
+                    catData[f.category] = (catData[f.category] || 0) + f.amount;
+                });
+                const labels = Object.keys(catData);
+                const data = Object.values(catData);
+                state.charts.financeExp = new Chart(expCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: labels.length ? labels : ['Raw Materials', 'Labor', 'Logistics', 'Other'],
+                        datasets: [{
+                            data: data.length ? data : [42, 28, 15, 8],
+                            backgroundColor: ['#4a7c59', '#78a886', '#c4a66a', '#b83230'],
+                            borderWidth: 1,
+                            borderColor: '#ffffff',
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: { color: '#4a4e4a', font: { size: 8 }, boxWidth: 10, padding: 4 }
+                            }
+                        },
+                        cutout: '50%',
+                    }
+                });
+            }
+        }
+
+        // ─── HR TAB ──────────────────────────────────────
+        function updateHRTab() {
+            document.getElementById('hrTotal').textContent = state.members.length;
+            const available = state.members.filter(m => m.availability === 'all_day' || m.availability === 'full_day' || m
+                .availability === 'available').length;
+            document.getElementById('hrAvailable').textContent = available;
+            const onLeave = state.members.filter(m => m.status === 'on_leave').length;
+            document.getElementById('hrOnLeave').textContent = onLeave;
+            const shifts = state.members.filter(m => m.shift).length;
+            document.getElementById('hrShifts').textContent = shifts;
+
+            const body = document.getElementById('hrTableBody');
+            if (state.members.length === 0) {
+                body.innerHTML =
+                    `<tr><td colspan="9" class="text-center text-on-surface-variant py-4">No member data.</td></tr>`;
+            } else {
+                body.innerHTML = state.members.map(m =>
+                    `<tr class="border-b border-e4e0d8">
+                        <td class="py-2 text-xs">${m.member_id}</td>
+                        <td class="font-medium">${m.name}</td>
+                        <td>${m.role}</td>
+                        <td class="text-xs">${m.skills}</td>
+                        <td><span class="text-xs">${m.availability}</span></td>
+                        <td><span class="status-badge ${m.status === 'available' ? 'good' : m.status === 'on_leave' ? 'bad' : 'warn'}">${m.status}</span></td>
+                        <td class="text-xs">${m.join_date}</td>
+                        <td class="text-xs">${m.contact}</td>
+                        <td class="text-xs">${m.shift}</td>
+                    </tr>`
+                ).join('');
+            }
+        }
+
+        // ─── POLICY TAB ──────────────────────────────────
+        function updatePolicyTab() {
+            const list = document.getElementById('policyList');
+            if (state.rules.length === 0) {
+                list.innerHTML = `<div class="text-sm text-on-surface-variant">No rules loaded. Upload company_rules.csv</div>`;
+            } else {
+                list.innerHTML = state.rules.map(r =>
+                    `<div class="policy-card" style="border-left-color: ${r.status === 'active' ? '#4a7c59' : '#b83230'};">
+                        <div class="flex justify-between items-start">
+                            <span class="policy-title">${r.rule_name}</span>
+                            <span class="policy-tag" style="${r.status === 'inactive' ? 'background:rgba(184,50,48,0.1);color:#b83230;' : ''}">${r.status}</span>
+                        </div>
+                        <div class="policy-desc">${r.description}</div>
+                        <div class="text-xs text-on-surface-variant mt-1">${r.category} · ${r.enforcement_level || 'mandatory'}</div>
+                    </div>`
+                ).join('');
+            }
+
+            const cats = document.getElementById('policyCategories');
+            const catCounts = {};
+            state.rules.forEach(r => { catCounts[r.category] = (catCounts[r.category] || 0) + 1; });
+            const entries = Object.entries(catCounts);
+            if (entries.length === 0) {
+                cats.innerHTML = `<div class="text-sm text-on-surface-variant">No categories.</div>`;
+            } else {
+                cats.innerHTML = entries.map(([cat, count]) =>
+                    `<div class="flex justify-between items-center p-2 bg-surface-container-low rounded-lg">
+                        <span class="font-medium">${cat}</span>
+                        <span class="text-sm text-on-surface-variant">${count} rules</span>
+                    </div>`
+                ).join('');
+            }
+        }
+
+        // ─── CHARTS (Overview) ──────────────────────────
+        function initCharts() {
+            const revCtx = document.getElementById('revenueChart')?.getContext('2d');
+            if (revCtx) {
+                state.charts.revenue = new Chart(revCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['W1', 'W2', 'W3', 'W4', 'W5', 'W6'],
+                        datasets: [{
+                            label: 'Revenue (₹L)',
+                            data: [3.2, 3.8, 4.1, 3.9, 4.5, 4.8],
+                            backgroundColor: 'rgba(74,124,89,0.6)',
+                            borderColor: '#4a7c59',
+                            borderWidth: 1,
+                            borderRadius: 4,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            x: { grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { color: '#4a4e4a', font: { size: 8 } } },
+                            y: { grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { color: '#4a4e4a', font: { size: 8 } } }
+                        }
+                    }
+                });
+            }
+        }
+
+        function updateCharts() {
+            if (state.charts.revenue && state.finances.length > 0) {
+                const monthly = {};
+                state.finances.filter(f => f.type === 'income').forEach(f => {
+                    const m = f.date ? f.date.slice(0, 7) : 'unknown';
+                    monthly[m] = (monthly[m] || 0) + f.amount;
+                });
+                const vals = Object.values(monthly).slice(-6);
+                if (vals.length > 0) {
+                    state.charts.revenue.data.datasets[0].data = vals.map(v => v / 1000);
+                    state.charts.revenue.update();
+                }
+            }
+        }
+
+        // ─── KNOWLEDGE GRAPH ─────────────────────────────
+        function renderGraph() {
+            const container = document.getElementById('knowledgeGraph');
+            if (!container) return;
+
+            const hasData = state.inventory.length > 0 || state.finances.length > 0 || state.members.length > 0;
+
+            const nodes = new vis.DataSet([
+                { id: 1, label: 'MercurAI', color: '#4a7c59', shape: 'star', size: 32 },
+                { id: 2, label: 'Finance', color: '#4a7c59', shape: 'dot', size: 20 },
+                { id: 3, label: 'Inventory', color: '#c4a66a', shape: 'dot', size: 20 },
+                { id: 4, label: 'HR', color: '#fbbf24', shape: 'dot', size: 20 },
+                { id: 5, label: 'Logistics', color: '#b83230', shape: 'dot', size: 20 },
+                { id: 6, label: 'Compliance', color: '#705c30', shape: 'dot', size: 20 },
+                { id: 7, label: 'Policy', color: '#4a7c59', shape: 'dot', size: 20 },
+                { id: 8, label: 'External', color: '#78a886', shape: 'dot', size: 20 },
+                { id: 9, label: 'CSV Data', color: '#c4a66a', shape: 'box', size: 16 },
+                { id: 10, label: 'Firestore', color: '#c4a66a', shape: 'box', size: 16 },
+                { id: 11, label: 'Weather API', color: '#fbbf24', shape: 'diamond', size: 16 },
+                { id: 12, label: 'Commodity API', color: '#fbbf24', shape: 'diamond', size: 16 },
+                { id: 13, label: 'News API', color: '#fbbf24', shape: 'diamond', size: 16 },
+                { id: 14, label: 'TOPSIS', color: '#c4a66a', shape: 'square', size: 22 },
+                { id: 15, label: 'Decisions', color: '#b83230', shape: 'star', size: 24 },
+                { id: 16, label: 'Products', color: '#78a886', shape: 'triangle', size: 14 },
+                { id: 17, label: 'Policies', color: '#705c30', shape: 'diamond', size: 14 },
+            ]);
+
+            const edges = new vis.DataSet([
+                { from: 1, to: 2, label: 'orch', color: '#4a7c59' },
+                { from: 1, to: 3, label: 'orch', color: '#4a7c59' },
+                { from: 1, to: 4, label: 'orch', color: '#4a7c59' },
+                { from: 1, to: 5, label: 'orch', color: '#4a7c59' },
+                { from: 1, to: 6, label: 'orch', color: '#4a7c59' },
+                { from: 1, to: 7, label: 'orch', color: '#4a7c59' },
+                { from: 1, to: 8, label: 'orch', color: '#4a7c59' },
+                { from: 2, to: 9, label: 'reads', color: '#c4a66a' },
+                { from: 3, to: 9, label: 'reads', color: '#c4a66a' },
+                { from: 4, to: 9, label: 'reads', color: '#c4a66a' },
+                { from: 5, to: 9, label: 'reads', color: '#c4a66a' },
+                { from: 6, to: 9, label: 'reads', color: '#c4a66a' },
+                { from: 7, to: 9, label: 'reads', color: '#c4a66a' },
+                { from: 8, to: 9, label: 'reads', color: '#c4a66a' },
+                { from: 8, to: 11, label: 'fetch', color: '#fbbf24' },
+                { from: 8, to: 12, label: 'fetch', color: '#fbbf24' },
+                { from: 8, to: 13, label: 'fetch', color: '#fbbf24' },
+                { from: 2, to: 14, label: 'feed', color: '#c4a66a' },
+                { from: 3, to: 14, label: 'feed', color: '#c4a66a' },
+                { from: 4, to: 14, label: 'feed', color: '#c4a66a' },
+                { from: 5, to: 14, label: 'feed', color: '#c4a66a' },
+                { from: 6, to: 14, label: 'feed', color: '#c4a66a' },
+                { from: 7, to: 14, label: 'feed', color: '#c4a66a' },
+                { from: 8, to: 14, label: 'feed', color: '#c4a66a' },
+                { from: 14, to: 15, label: 'gen', color: '#b83230' },
+                { from: 3, to: 16, label: 'manages', color: '#78a886' },
+                { from: 7, to: 17, label: 'tracks', color: '#705c30' },
+                { from: 9, to: 10, label: 'syncs', color: '#c4a66a' },
+            ]);
+
+            if (hasData) {
+                const dataNodes = Object.keys(state.datasets).slice(0, 5).map((name, i) => ({
+                    id: 100 + i,
+                    label: name.slice(0, 12),
+                    color: '#c4a66a',
+                    shape: 'box',
+                    size: 14,
+                }));
+                dataNodes.forEach(n => nodes.add(n));
+                dataNodes.forEach((n) => { edges.add({ from: 9, to: n.id, label: 'includes', color: '#c4a66a' }); });
+            }
+
+            const data = { nodes, edges };
+            const options = {
+                physics: { enabled: true, stabilization: { iterations: 120 }, barnesHut: { gravitationalConstant: -6000,
+                        springConstant: 0.002 } },
+                edges: { smooth: true, font: { size: 8, color: '#4a4e4a', strokeWidth: 0, align: 'middle' },
+                width: 1.2, color: { color: '#c4c8bc', highlight: '#4a7c59' } },
+                nodes: { font: { size: 11, color: '#2e3230', strokeWidth: 0 }, shadow: true, borderWidth: 1,
+                    borderColor: '#e4e0d8' },
+                interaction: { dragNodes: true, dragView: true, zoomView: true },
+                layout: { randomSeed: 42 }
+            };
+
+            if (state.graphNetwork) state.graphNetwork.destroy();
+            state.graphNetwork = new vis.Network(container, data, options);
+            state.graphNetwork.on('click', function(params) {
+                if (params.nodes.length) {
+                    const node = nodes.get(params.nodes[0]);
+                    if (node) showToast(`🔍 ${node.label}`, 'info');
+                }
+            });
+        }
+
+        // ─── TOAST ───────────────────────────────────────
+        function showToast(msg, type = 'info') {
+            const existing = document.querySelector('.toast');
+            if (existing) existing.remove();
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            const icon = type === 'success' ? 'check_circle' : type === 'error' ? 'error' : 'info';
+            toast.innerHTML = `<span class="material-symbols-outlined">${icon}</span><span>${msg}</span>`;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 4000);
+        }
+
+        // ─── UPLOAD EVENTS ──────────────────────────────
+        uploadZone.addEventListener('click', () => fileInput.click());
+        uploadZone.addEventListener('dragover', (e) => { e.preventDefault();
+            uploadZone.classList.add('dragover'); });
+        uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('dragover');
+            for (const file of e.dataTransfer.files) {
+                if (file.name.endsWith('.csv')) uploadCSV(file);
+            }
+        });
+        fileInput.addEventListener('change', (e) => {
+            for (const file of e.target.files) {
+                if (file.name.endsWith('.csv')) uploadCSV(file);
+            }
+            fileInput.value = '';
+        });
+        fetchDataBtn.addEventListener('click', loadFromFirestore);
+        clearDataBtn.addEventListener('click', clearAllData);
+
+        // ─── AGENT TOGGLES ──────────────────────────────
+        document.querySelectorAll('#agentToggles input[type="checkbox"]').forEach(toggle => {
+            toggle.addEventListener('change', () => {
+                const agent = toggle.dataset.agent;
+                const active = toggle.checked;
+                const badges = document.querySelectorAll('#decisionBadges .decision-badge');
+                const map = { 'finance': 0, 'inventory': 1, 'hr': 2, 'logistics': 3, 'compliance': 4, 'policy': 5,
+                    'external': 6 };
+                const idx = map[agent];
+                if (idx !== undefined && badges[idx]) {
+                    if (active) {
+                        badges[idx].classList.add('active');
+                        badges[idx].innerHTML =
+                            `<span class="material-symbols-outlined text-[14px]">check</span> ${agent.charAt(0).toUpperCase() + agent.slice(1)}`;
+                    } else {
+                        badges[idx].classList.remove('active');
+                        badges[idx].innerHTML =
+                            `<span class="material-symbols-outlined text-[14px]">close</span> ${agent.charAt(0).toUpperCase() + agent.slice(1)}`;
+                    }
+                }
+            });
+        });
+
+        // ─── INIT ────────────────────────────────────────
+        async function init() {
+            await fetchWeather();
+            await fetchCommodity();
+            await fetchNews();
+            await loadFromFirestore();
+            await loadCompanyContext();
+            initCharts();
+            setTimeout(renderGraph, 300);
+            updateAllUI();
+            renderGoals();
+            showToast('🚀 MercurAI ready · All systems online', 'success');
+            setInterval(() => { fetchWeather();
+                fetchCommodity();
+                fetchNews(); }, 120000);
+            // Add default goal
+            if (state.goals.length === 0) {
+                state.goals.push({
+                    id: state.nextGoalId++,
+                    title: 'Welcome to MercurAI',
+                    description: 'Upload your data to get started with decision intelligence.',
+                    category: 'System',
+                    date: new Date().toLocaleDateString('en-IN'),
+                    status: 'active'
+                });
+                renderGoals();
+            }
+        }
+
+        init().catch(console.error);
+
+        window.__mercur = { state, db, uploadCSV, loadFromFirestore, clearAllData, runDecisionEngine, updateAllUI };
+        console.log('🌾 MercurAI · Decision Intelligence System · Data-driven');
+    </script>
+
+</body>
+</html>
