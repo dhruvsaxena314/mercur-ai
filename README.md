@@ -12,7 +12,7 @@ In 2023, I spent six months consulting for a textile cooperative in Varanasi. Th
 But behind the scenes:
 
 - *Financial records* were scattered across 3 different Excel sheets, 2 notebooks, and one member's memory
-- *Inventory* was tracked manually — they discovered 12,000 meters of fabric "missing" only during a year-end audit
+- *Inventory* was tracked manually , they discovered 12,000 meters of fabric "missing" only during a year-end audit
 - *Member availability* was communicated through WhatsApp groups and word-of-mouth
 - *Government policy changes* arrived as cryptic circulars that nobody understood
 - *Weather, cotton prices, and news* impacted their daily decisions, but nobody connected the dots
@@ -95,10 +95,10 @@ Weather, commodity prices, news, and government policies change daily. MercurAI 
 - **New government subsidy?** You get a notification before the deadline
 
 #### 4. **Knowledge Graph**
-Your data isn't just numbers in a table. MercurAI builds a **visual network** showing how everything connects — agents, data sources, decisions, and external factors. Hover over any node for insights.
+Your data isn't just numbers in a table. MercurAI builds a **visual network** showing how everything connects , agents, data sources, decisions, and external factors. Hover over any node for insights.
 
 #### 5. **Built on Your Data**
-No black boxes. MercurAI runs on your actual data — uploaded as simple CSV files:
+No black boxes. MercurAI runs on your actual data , uploaded as simple CSV files:
 
 - Inventory (items, quantities, reorder levels)
 - Finance (transactions, income, expenses)
@@ -228,13 +228,13 @@ MercurAI bridges this gap with:
 ## 💬 What People Are Saying
 
 > *"We were losing money for three years without knowing why. MercurAI showed us our inventory was bleeding. We fixed it and our profits doubled in six months."*
-> — Cooperative Manager, Varanasi
+> , Cooperative Manager, Varanasi
 
 > *"I thought we were too small for an ERP and too big for spreadsheets. MercurAI is the perfect middle ground."*
-> — MSME Owner, Lucknow
+> , MSME Owner, Lucknow
 
 > *"The weather integration saved us. We were about to ship 500 sarees in the rain. MercurAI warned us, we waterproofed the packaging, and our client was thrilled."*
-> — Logistics Coordinator, Gorakhpur
+> , Logistics Coordinator, Gorakhpur
 
 ---
 
@@ -247,7 +247,7 @@ MercurAI is not just a product. It's a mission.
 - **Create** sustainable, data-driven growth
 - **Prevent** the tragedy of cooperative failures due to "unknown unknowns"
 
-When 1 cooperative fails, 100 families lose their livelihood. When 100 cooperatives fail, 10,000 families are affected. When 10,000 cooperatives fail — you get a community-level crisis.
+When 1 cooperative fails, 100 families lose their livelihood. When 100 cooperatives fail, 10,000 families are affected. When 10,000 cooperatives fail , you get a community-level crisis.
 
 MercurAI prevents this. It transforms cooperatives from fragile to resilient, from reactive to proactive, from surviving to thriving.
 
@@ -270,11 +270,11 @@ MercurAI prevents this. It transforms cooperatives from fragile to resilient, fr
 
 ---
 
-- **Backend API**: FastAPI (Python) — robust, fast, modern
-- **Frontend**: HTML/CSS/JS with Tailwind — beautiful, responsive
-- **AI Model**: Groq (Llama 3.3 70B) — state-of-the-art reasoning
-- **Database**: Firebase Firestore — real-time sync, scalable
-- **Hosting**: Firebase — deploy in minutes
+- **Backend API**: FastAPI (Python) , robust, fast, modern
+- **Frontend**: HTML/CSS/JS with Tailwind , beautiful, responsive
+- **AI Model**: Groq (Llama 3.3 70B) , state-of-the-art reasoning
+- **Database**: Firebase Firestore , real-time sync, scalable
+- **Hosting**: Firebase , deploy in minutes
 
 ---
 
@@ -292,7 +292,7 @@ Every minute, the "unknown unknowns" continue to claim victims.
 **MercurAI changes this.**
 Not with magic. With intelligence. With data. With a system that brings together everything a cooperative needs to make better decisions.
 
-**Because every cooperative deserves to thrive. And every cooperative can — with the right intelligence.**
+**Because every cooperative deserves to thrive. And every cooperative can , with the right intelligence.**
 
 
 
