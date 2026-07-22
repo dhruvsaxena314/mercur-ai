@@ -15,7 +15,7 @@ Upload CSVs for:
 Ask in plain English:
 - "Should we accept the 500-unit bulk order?"
 - "What's our financial position this month?"
-- "Weather in Varanasi — suitable for delivery tomorrow?"
+- "Weather in Berlin - suitable for delivery tomorrow?"
 - "Which items are low in stock?"
 
 ### 3. Get Decisions
