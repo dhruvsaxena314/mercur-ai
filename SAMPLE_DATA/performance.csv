@@ -1,0 +1,24 @@
+metric_id,date,department,kpi_name,target,actual,achievement_percentage,status,comments
+PM001,2026-07-01,Production,Target Achievement,200,185,92.50,on_track,Good progress
+PM002,2026-07-01,Quality,Defect Rate,3%,3.45%,86.20,needs_attention,Quality slightly below target
+PM003,2026-07-01,Sales,Revenue Target,150000,158000,105.33,exceeded,Excellent sales month
+PM004,2026-07-01,Logistics,On-time Delivery,95%,97%,102.11,exceeded,Great delivery performance
+PM005,2026-07-01,HR,Attendance Rate,80%,87%,108.75,exceeded,Good attendance this month
+PM006,2026-07-08,Production,Target Achievement,210,195,92.86,on_track,Consistent performance
+PM007,2026-07-08,Quality,Defect Rate,3%,2.87%,104.33,exceeded,Quality improved
+PM008,2026-07-08,Sales,Revenue Target,180000,185000,102.78,exceeded,Strong sales growth
+PM009,2026-07-08,Logistics,On-time Delivery,95%,98%,103.16,exceeded,Dispatch efficiency improving
+PM010,2026-07-15,Production,Target Achievement,220,210,95.45,on_track,Stable output
+PM011,2026-07-15,Quality,Defect Rate,3%,2.95%,101.69,exceeded,Quality maintained
+PM012,2026-07-15,Sales,Revenue Target,200000,210000,105.00,exceeded,Record sales week
+PM013,2026-07-15,Logistics,On-time Delivery,95%,96.5%,101.58,on_track,Consistent delivery
+PM014,2026-07-15,HR,Attendance Rate,80%,89%,111.25,exceeded,Good attendance
+PM015,2026-07-22,Production,Target Achievement,230,225,97.83,on_track,Strong production
+PM016,2026-07-22,Quality,Defect Rate,3%,2.45%,122.45,exceeded,Excellent quality
+PM017,2026-07-22,Sales,Revenue Target,220000,235000,106.82,exceeded,Outstanding sales
+PM018,2026-07-22,Logistics,On-time Delivery,95%,99%,104.21,exceeded,Excellent delivery
+PM019,2026-07-29,Production,Target Achievement,240,250,104.17,exceeded,Record production week
+PM020,2026-07-29,Quality,Defect Rate,3%,2.25%,133.33,exceeded,Best quality performance
+PM021,2026-07-29,Sales,Revenue Target,250000,275000,110.00,exceeded,All-time high revenue
+PM022,2026-07-29,Logistics,On-time Delivery,95%,99.5%,104.74,exceeded,Outstanding delivery
+PM023,2026-07-29,HR,Attendance Rate,80%,92%,115.00,exceeded,Excellent attendance

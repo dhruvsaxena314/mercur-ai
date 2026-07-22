@@ -1,0 +1,26 @@
+member_id,name,role,department,skills,experience_years,availability,status,join_date,contact,emergency_contact,shift,training_completed,certifications,performance_rating,attendance_percentage
+M001,Rajesh Kumar,Master Weaver,Production,"Weaving, Design, Saree Making",12,full_time,active,2020-01-15,9876543210,9876543210,Morning,Advanced Weaving,Certified Master Weaver,4.8,95
+M002,Sita Patel,Master Weaver,Production,"Embroidery, Weaving, Design",10,full_time,active,2021-03-20,9876543211,9876543211,Morning,Advanced Embroidery,Certified Embroidery Expert,4.9,94
+M003,Amit Singh,Senior Weaver,Production,"Weaving, Finishing, Quality Check",8,full_time,on_leave,2022-06-10,9876543212,9876543212,Evening,Intermediate,Quality Control Certified,4.2,88
+M004,Meena Gupta,Supervisor,Management,"Supervision, Quality Check, Training",9,full_time,active,2020-08-01,9876543213,9876543213,Morning,Leadership Training,Certified Supervisor,4.7,96
+M005,Vikram Rao,Master Weaver,Production,"Machine Operation, Design, Repair",11,full_time,active,2023-02-15,9876543214,9876543214,Morning,Advanced Machine Ops,Master Weaver Certified,4.6,93
+M006,Sunita Devi,Junior Weaver,Production,"Weaving, Packaging, Quality",3,part_time,active,2023-05-10,9876543215,9876543215,Evening,Basic Weaving,Quality Control Basic,3.8,85
+M007,John Abraham,Logistics Head,Logistics,"Delivery, Transport, Warehouse",7,full_time,active,2023-07-01,9876543216,9876543216,Morning,Fleet Management,Forklift Certified,4.4,91
+M008,Priya Sharma,Admin,Administration,"Data Entry, Documentation, HR",5,full_time,active,2024-01-15,9876543217,9876543217,Morning,HR Management,Admin Certified,4.3,92
+M009,Deepak Kumar,Designer,Design,"Design, Illustration, Pattern Making",6,full_time,active,2024-03-01,9876543218,9876543218,Evening,Advanced Design,Fashion Design Certified,4.7,94
+M010,Anita Reddy,Quality Controller,Production,"Quality Check, Inspection, Testing",4,full_time,active,2024-05-15,9876543219,9876543219,Morning,Quality Management,ISO Quality Certified,4.5,93
+M011,Suresh Kumar,Driver,Logistics,"Delivery, Transport, Route Planning",3,full_time,active,2024-06-01,9876543220,9876543220,Evening,Advanced Driving,Commercial Vehicle License,4.2,89
+M012,Lakshmi Nair,Junior Weaver,Production,"Weaving, Packing, Basic Design",2,part_time,active,2024-07-01,9876543221,9876543221,Evening,Basic Weaving,Basic Weaving Certified,3.6,82
+M013,Mohan Singh,Senior Weaver,Production,"Finishing, Packaging, Supervision",7,full_time,on_leave,2023-08-15,9876543222,9876543222,Morning,Intermediate Weaving,Senior Weaver Certified,4.1,87
+M014,Kavita Sharma,Designer,Design,"Design, Printing, Embroidery",5,full_time,active,2024-09-01,9876543223,9876543223,Morning,Advanced Design,Design Innovation Award,4.8,96
+M015,Ravi Kumar,Accountant,Finance,"Accounting, Finance, GST",8,full_time,active,2024-10-01,9876543224,9876543224,Morning,Advanced Accounting,CA Intermediate,4.6,94
+M016,Pooja Patel,Junior Weaver,Production,"Weaving, Cutting, Packaging",2,part_time,active,2024-11-15,9876543225,9876543225,Evening,Basic Weaving,Basic,3.5,80
+M017,Arjun Singh,Supervisor,Management,"Supervision, HR, Training",6,full_time,active,2024-12-01,9876543226,9876543226,Morning,Leadership Training,Supervisor Certified,4.3,90
+M018,Sneha Reddy,Quality Controller,Production,"Quality Check, Inspection",3,full_time,active,2025-01-15,9876543227,9876543227,Morning,Quality Management,Quality Certification,4.2,91
+M019,Vijay Kumar,Driver,Logistics,"Delivery, Transport",2,full_time,active,2025-02-01,9876543228,9876543228,Evening,Driving,Commercial License,4.0,88
+M020,Neha Gupta,Admin,Administration,"Data Entry, Record Keeping",3,full_time,active,2025-03-15,9876543229,9876543229,Morning,Basic Admin,Admin Certification,3.9,85
+M021,Rahul Verma,Senior Weaver,Production,"Weaving, Design, Dyeing",9,full_time,active,2023-09-20,9876543230,9876543230,Morning,Advanced Dyeing,Master Dyer Certified,4.7,95
+M022,Nisha Singh,Junior Weaver,Production,"Weaving, Finishing",1,part_time,active,2025-04-01,9876543231,9876543231,Evening,Basic Training,Basic,3.4,78
+M023,Vijay Shankar,Logistics,Logistics,"Warehouse, Inventory, Dispatch",4,full_time,active,2024-02-15,9876543232,9876543232,Morning,Warehouse Management,Inventory Certified,4.0,87
+M024,Pallavi Rao,Designer,Design,"Design, Illustration, Digital",4,full_time,active,2024-04-01,9876543233,9876543233,Morning,Digital Design,Digital Design Certified,4.5,92
+M025,Sandeep Kumar,Quality Controller,Production,"Quality Check, Testing",2,full_time,active,2025-03-01,9876543234,9876543234,Morning,Quality Control,Basic Quality,3.8,84

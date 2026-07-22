@@ -1,0 +1,51 @@
+item_id,item_name,category,sub_category,quantity,unit,unit_price,reorder_level,reorder_quantity,last_order_date,location,supplier,storage_condition,expiry_date,quality_grade
+INV001,Raw Cotton - Premium,raw_material,fiber,1250,kg,3.20,300,500,2026-07-05,North Warehouse,Sharma Cotton Mills,climate_controlled,2027-06-30,A+
+INV002,Raw Cotton - Standard,raw_material,fiber,850,kg,2.50,250,400,2026-07-10,North Warehouse,Patel Agro Exports,climate_controlled,2027-07-15,A
+INV003,Raw Cotton - Organic,raw_material,fiber,420,kg,4.80,150,250,2026-07-01,North Warehouse,EcoCotton India,climate_controlled,2027-08-01,A+
+INV004,Dye - Indigo Blue,raw_material,chemical,85,l,5.50,30,50,2026-06-25,Chemical Room,ColorMaster Chemicals,room_temperature,2026-12-31,A
+INV005,Dye - Crimson Red,raw_material,chemical,65,l,7.20,25,40,2026-06-28,Chemical Room,ColorMaster Chemicals,room_temperature,2026-12-31,A
+INV006,Dye - Saffron Yellow,raw_material,chemical,45,l,6.80,20,30,2026-06-30,Chemical Room,NaturalDye Co.,room_temperature,2027-01-15,A+
+INV007,Dye - Emerald Green,raw_material,chemical,30,l,8.50,15,25,2026-07-02,Chemical Room,EcoColors Ltd,room_temperature,2027-02-01,A
+INV008,Thread - Cotton White,raw_material,thread,2500,spools,0.50,500,800,2026-07-01,West Warehouse,ThreadMasters Inc,climate_controlled,2027-12-31,A
+INV009,Thread - Cotton Colored,raw_material,thread,1800,spools,0.75,400,600,2026-07-03,West Warehouse,ThreadMasters Inc,climate_controlled,2027-12-31,A
+INV010,Thread - Silk Premium,raw_material,thread,950,spools,1.80,200,350,2026-07-05,West Warehouse,SilkThreads Pvt Ltd,climate_controlled,2027-06-30,A+
+INV011,Thread - Metallic Gold,raw_material,thread,350,spools,2.50,100,150,2026-07-08,West Warehouse,LuxuryThreads,room_temperature,2027-09-30,A
+INV012,Thread - Metallic Silver,raw_material,thread,280,spools,2.30,80,120,2026-07-08,West Warehouse,LuxuryThreads,room_temperature,2027-09-30,A
+INV013,Fabric - Cotton Premium,product,fabric,520,meters,12.00,150,250,2026-07-10,Finished Goods,In-house,climate_controlled,2027-12-31,A+
+INV014,Fabric - Silk Blend,product,fabric,180,meters,28.00,60,100,2026-07-12,Finished Goods,In-house,climate_controlled,2027-12-31,A+
+INV015,Fabric - Linen Blend,product,fabric,240,meters,18.00,80,120,2026-07-14,Finished Goods,In-house,climate_controlled,2027-12-31,A
+INV016,Fabric - Organic Cotton,product,fabric,160,meters,22.00,50,80,2026-07-15,Finished Goods,In-house,climate_controlled,2027-12-31,A+
+INV017,Saree - Classic Cotton,product,saree,95,pieces,120.00,30,50,2026-07-15,Finished Goods,In-house,climate_controlled,2027-12-31,A
+INV018,Saree - Premium Silk,product,saree,52,pieces,280.00,20,30,2026-07-16,Finished Goods,In-house,climate_controlled,2027-12-31,A+
+INV019,Saree - Designer Collection,product,saree,28,pieces,450.00,10,15,2026-07-16,Finished Goods,In-house,climate_controlled,2027-12-31,A+
+INV020,Saree - Wedding Special,product,saree,15,pieces,750.00,5,10,2026-07-17,Finished Goods,In-house,climate_controlled,2027-12-31,A+
+INV021,Kurti - Cotton,product,kurti,75,pieces,180.00,25,40,2026-07-08,Finished Goods,In-house,climate_controlled,2027-12-31,A
+INV022,Kurti - Silk Blend,product,kurti,40,pieces,320.00,15,25,2026-07-08,Finished Goods,In-house,climate_controlled,2027-12-31,A+
+INV023,Kurti - Designer,product,kurti,20,pieces,500.00,8,15,2026-07-09,Finished Goods,In-house,climate_controlled,2027-12-31,A+
+INV024,Kurta - Men's Cotton,product,kurta,65,pieces,250.00,20,35,2026-07-08,Finished Goods,In-house,climate_controlled,2027-12-31,A
+INV025,Kurta - Men's Silk,product,kurta,30,pieces,420.00,10,20,2026-07-09,Finished Goods,In-house,climate_controlled,2027-12-31,A+
+INV026,Dupatta - Cotton,product,dupatta,140,pieces,80.00,40,60,2026-07-08,Finished Goods,In-house,climate_controlled,2027-12-31,A
+INV027,Dupatta - Silk,product,dupatta,80,pieces,150.00,25,40,2026-07-09,Finished Goods,In-house,climate_controlled,2027-12-31,A
+INV028,Dupatta - Embroidered,product,dupatta,40,pieces,250.00,15,25,2026-07-10,Finished Goods,In-house,climate_controlled,2027-12-31,A+
+INV029,Stole - Wool Blend,product,stole,60,pieces,200.00,20,30,2026-07-10,Finished Goods,In-house,climate_controlled,2027-06-30,A
+INV030,Stole - Silk,product,stole,35,pieces,350.00,12,20,2026-07-11,Finished Goods,In-house,climate_controlled,2027-06-30,A+
+INV031,Packaging - Small Box,packaging,box,800,pieces,0.50,200,300,2026-06-30,Packaging Room,EcoPack Solutions,room_temperature,2027-12-31,A
+INV032,Packaging - Medium Box,packaging,box,450,pieces,1.00,150,200,2026-06-30,Packaging Room,EcoPack Solutions,room_temperature,2027-12-31,A
+INV033,Packaging - Large Box,packaging,box,200,pieces,2.00,80,120,2026-06-30,Packaging Room,EcoPack Solutions,room_temperature,2027-12-31,A
+INV034,Buttons - Plastic White,raw_material,button,12000,pieces,0.05,3000,5000,2026-06-28,Material Room,Buttons India Ltd,room_temperature,2027-12-31,A
+INV035,Buttons - Brass Antique,raw_material,button,4500,pieces,0.25,1000,2000,2026-06-28,Material Room,Artistic Hardware,room_temperature,2027-12-31,A
+INV036,Buttons - Wooden Natural,raw_material,button,2800,pieces,0.35,800,1500,2026-06-29,Material Room,EcoButton Co,room_temperature,2027-06-30,A+
+INV037,Zippers - Metal,raw_material,zipper,1500,pieces,0.60,300,500,2026-06-28,Material Room,ZipMaster Inc,room_temperature,2027-12-31,A
+INV038,Zippers - Plastic,raw_material,zipper,2000,pieces,0.40,400,600,2026-06-29,Material Room,ZipMaster Inc,room_temperature,2027-12-31,A
+INV039,Lace - Cotton Trim,raw_material,lace,800,meters,1.20,200,300,2026-06-28,Material Room,LaceMakers Pvt Ltd,room_temperature,2027-06-30,A
+INV040,Lace - Silk Trim,raw_material,lace,350,meters,2.50,100,150,2026-06-29,Material Room,LaceMakers Pvt Ltd,room_temperature,2027-06-30,A+
+INV041,Labels - Custom Branded,packaging,label,2500,pieces,0.30,500,800,2026-07-01,Packaging Room,BrandPrint India,room_temperature,2027-12-31,A
+INV042,Labels - Care Instructions,packaging,label,3000,pieces,0.15,600,1000,2026-07-01,Packaging Room,BrandPrint India,room_temperature,2027-12-31,A
+INV043,Hangers - Plastic,packaging,hanger,600,pieces,0.80,150,250,2026-07-02,Packaging Room,DisplayMasters,room_temperature,2027-12-31,A
+INV044,Tissue Paper - White,packaging,paper,1000,sheets,0.10,300,500,2026-07-02,Packaging Room,EcoPaper Co,room_temperature,2027-12-31,A
+INV045,Gift Bags - Small,packaging,bag,300,pieces,1.50,80,150,2026-07-03,Packaging Room,GiftWrap India,room_temperature,2027-12-31,A
+INV046,Saree Covers - Velvet,packaging,cover,200,pieces,3.00,50,100,2026-07-03,Packaging Room,LuxuryCovers,room_temperature,2027-12-31,A+
+INV047,Packing Tape,packaging,tape,150,rolls,1.20,40,60,2026-07-04,Packaging Room,SecurePack,room_temperature,2027-12-31,A
+INV048,Stitching Machine Oil,material,oil,25,l,4.50,10,15,2026-06-25,Maintenance Room,Industrial Supplies,room_temperature,2026-12-31,A
+INV049,Spare Needles - Standard,material,needle,800,pack,0.50,200,300,2026-06-26,Maintenance Room,Industrial Supplies,room_temperature,2027-12-31,A
+INV050,Spare Needles - Heavy,material,needle,400,pack,0.80,100,150,2026-06-26,Maintenance Room,Industrial Supplies,room_temperature,2027-12-31,A

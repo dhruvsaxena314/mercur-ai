@@ -1,0 +1,31 @@
+order_id,customer_name,customer_type,items,quantity,total_value,status,deadline,delivery_address,city,pincode,payment_status,order_date,priority,delivery_instructions,assigned_driver
+ORD001,City Traders,wholesale,"Saree Classic, Dupatta",50,6000,delivered,2026-07-25,123 Main Street,City,110001,paid,2026-07-10,medium,Handle with care,John Abraham
+ORD002,Local Boutique,retail,"Kurti, Kurta",30,5400,delivered,2026-07-20,456 Market Road,City,110002,paid,2026-07-05,high,Gift wrapping required,Suresh Kumar
+ORD003,Bulk Distributor,wholesale,"Saree Premium, Kurta",100,25000,shipped,2026-08-01,789 Industrial Area,City,110003,partial,2026-07-12,high,Deliver on pallets,John Abraham
+ORD004,Eco Store,retail,"Kurta, Kurti",25,6250,processing,2026-07-28,345 Green Lane,City,110004,unpaid,2026-07-15,medium,Eco-friendly packaging,Vijay Kumar
+ORD005,Export Corp,export,"Saree Designer, Saree Premium",200,80000,processing,2026-08-15,567 Export Zone,City,110005,unpaid,2026-07-01,urgent,"Ready for export, custom documentation",John Abraham
+ORD006,School Board,government,"Uniform Set, Kurti",500,120000,in_transit,2026-08-20,School Board Office,City,110006,partial,2026-06-15,urgent,"School uniform delivery, multiple sizes",Suresh Kumar
+ORD007,City Traders,wholesale,"Kurti, Dupatta",40,7200,delivered,2026-07-15,123 Main Street,City,110001,paid,2026-07-02,medium,Standard packaging,John Abraham
+ORD008,Wholesale Market,wholesale,"Saree Classic, Kurta",75,9000,processing,2026-08-05,Wholesale Market Complex,City,110007,unpaid,2026-07-18,medium,"Bulk delivery, ground floor",Vijay Kumar
+ORD009,Eco Store,retail,"Dupatta, Stole",100,8000,delivered,2026-07-22,345 Green Lane,City,110004,paid,2026-07-08,medium,Eco packaging,Suresh Kumar
+ORD010,International Buyer,export,"Saree Premium, Saree Designer",50,12500,shipped,2026-08-25,International Shipping Hub,City,110008,partial,2026-06-25,urgent,"Export documentation ready, fragile",John Abraham
+ORD011,Local Boutique,retail,"Kurta, Kurti",15,3750,processing,2026-07-30,456 Market Road,City,110002,unpaid,2026-07-20,medium,Standard packaging,Vijay Kumar
+ORD012,Government Office,government,"Uniform Set, Kurti",200,48000,processing,2026-09-01,Government Office Complex,City,110006,unpaid,2026-07-01,urgent,"Government order, strict timeline",Suresh Kumar
+ORD013,Export Corp,export,"Kurti, Kurta",60,10800,shipped,2026-08-10,567 Export Zone,City,110005,paid,2026-07-05,high,Export quality packaging,John Abraham
+ORD014,City Traders,wholesale,"Dupatta, Saree Classic",150,12000,processing,2026-08-12,123 Main Street,City,110001,partial,2026-07-15,medium,Standard packaging,Vijay Kumar
+ORD015,Eco Store,retail,"Saree Designer, Stole",30,12000,delivered,2026-07-18,345 Green Lane,City,110004,paid,2026-07-03,high,"Premium packaging, gift wrapping",Suresh Kumar
+ORD016,Bulk Distributor,wholesale,"Kurta, Saree Premium",80,20000,shipped,2026-08-18,789 Industrial Area,City,110003,unpaid,2026-07-10,high,"Pallet delivery, forklift needed",John Abraham
+ORD017,School Board,government,"Kurti, Uniform Set",100,18000,processing,2026-08-22,School Board Office,City,110006,unpaid,2026-07-12,urgent,"School uniforms, size variations",Suresh Kumar
+ORD018,Wholesale Market,wholesale,"Saree Premium, Dupatta",60,15000,shipped,2026-08-08,Wholesale Market Complex,City,110007,partial,2026-07-14,medium,"Bulk delivery, loading dock",Vijay Kumar
+ORD019,International Buyer,export,"Uniform Set, Saree Classic",150,36000,processing,2026-09-15,International Shipping Hub,City,110008,unpaid,2026-07-01,urgent,"Export clearance, custom forms",John Abraham
+ORD020,Local Boutique,retail,"Dupatta, Stole",80,6400,processing,2026-08-02,456 Market Road,City,110002,unpaid,2026-07-19,medium,Gift wrapping,Vijay Kumar
+ORD021,Eco Store,retail,"Saree Classic, Kurta",40,4800,delivered,2026-07-21,345 Green Lane,City,110004,paid,2026-07-06,high,Eco packaging,Suresh Kumar
+ORD022,Export Corp,export,"Saree Designer, Saree Premium",100,40000,shipped,2026-08-28,567 Export Zone,City,110005,partial,2026-07-08,urgent,"Premium packaging, fragile items",John Abraham
+ORD023,City Traders,wholesale,"Kurta, Kurti",35,8750,processing,2026-08-15,123 Main Street,City,110001,unpaid,2026-07-16,medium,Standard packaging,Vijay Kumar
+ORD024,Government Office,government,"Kurti, Uniform Set",150,27000,processing,2026-09-05,Government Office Complex,City,110006,unpaid,2026-07-01,urgent,"Government order, rush delivery",Suresh Kumar
+ORD025,Bulk Distributor,wholesale,"Saree Premium, Saree Classic",80,20000,shipped,2026-08-20,789 Industrial Area,City,110003,partial,2026-07-13,high,"Fragile items, handle carefully",John Abraham
+ORD026,International Buyer,export,"Saree Designer, Dupatta",40,25000,processing,2026-09-20,International Shipping Hub,City,110008,unpaid,2026-07-05,urgent,"Fragile sarees, custom packing",John Abraham
+ORD027,Eco Store,retail,"Kurti, Dupatta",50,12500,delivered,2026-08-01,345 Green Lane,City,110004,paid,2026-07-10,high,"Eco packaging, rush delivery",Suresh Kumar
+ORD028,Local Boutique,retail,"Kurta, Stole",25,11000,shipped,2026-08-05,456 Market Road,City,110002,partial,2026-07-12,medium,"Gift wrapping, premium packaging",Vijay Kumar
+ORD029,City Traders,wholesale,"Saree Classic, Kurti",60,15000,processing,2026-08-25,123 Main Street,City,110001,unpaid,2026-07-18,medium,"Bulk delivery, ground floor",John Abraham
+ORD030,Export Corp,export,"Saree Premium, Kurta",75,35000,shipped,2026-08-30,567 Export Zone,City,110005,paid,2026-07-14,high,"Export quality, documentation ready",Suresh Kumarn

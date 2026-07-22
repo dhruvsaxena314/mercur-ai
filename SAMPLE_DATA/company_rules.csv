@@ -1,0 +1,31 @@
+rule_id,rule_name,category,sub_category,description,status,date_added,enforcement_level,applicable_to,review_date,last_updated
+R001,Profit Sharing,financial,distribution,"50% of annual profits distributed to members based on contribution",active,2024-01-01,mandatory,all_members,2027-01-01,2026-01-01
+R002,Consensus Voting,governance,decision,"Major decisions require 75% member approval for implementation",active,2024-01-01,mandatory,all_members,2026-12-01,2026-01-01
+R003,Minimum Order,operations,sales,"Minimum order value is Rs 5000 for all wholesale orders",active,2024-01-01,mandatory,wholesale,2026-12-01,2026-01-01
+R004,Quality Check,production,quality,"Every batch of 50 pieces must pass quality inspection",active,2024-01-01,mandatory,production,2026-11-01,2026-01-01
+R005,Member Training,hr,development,"New members must complete 2 week training program before starting",active,2024-01-01,mandatory,hr,2026-12-01,2026-06-01
+R006,Payment Terms,financial,receivables,"30 day net payment terms for bulk buyers, 15 days for others",active,2024-01-01,mandatory,sales,2026-12-01,2026-01-01
+R007,Discount Policy,sales,pricing,"5% discount for orders above Rs 10000, 10% above Rs 25000",active,2024-01-01,recommended,sales,2026-12-01,2026-01-01
+R008,Zero Waste Policy,operations,sustainability,"All production waste must be recycled, composted, or reused",active,2024-03-15,mandatory,production,2026-12-01,2026-03-15
+R009,Minimum Wage,hr,compensation,"All members paid minimum wage of Rs 500/day or Rs 15000/month",active,2024-03-15,mandatory,hr,2026-12-01,2026-03-15
+R010,Attendance Policy,hr,performance,"Minimum 75% attendance required for monthly bonuses",active,2024-03-15,mandatory,hr,2026-12-01,2026-03-15
+R011,Safety Policy,operations,safety,"Safety protocols must be followed in workshop and production areas",active,2024-04-01,mandatory,production,2026-11-01,2026-04-01
+R012,Financial Transparency,governance,reporting,"Financial reports shared monthly with all members via portal",active,2024-04-01,mandatory,all_members,2026-12-01,2026-04-01
+R013,Bulk Discount,sales,pricing,"10% discount for orders above Rs 25000, 15% above Rs 50000",active,2024-05-01,recommended,sales,2026-12-01,2026-05-01
+R014,Sustainable Sourcing,operations,procurement,"Use eco-friendly raw materials when possible, preference to local",active,2024-05-01,recommended,procurement,2026-12-01,2026-05-01
+R015,Designer Royalty,financial,compensation,"Designers get 5% royalty on sales of their original designs",active,2024-06-01,mandatory,design,2026-12-01,2026-06-01
+R016,Delivery Terms,logistics,shipping,"Free delivery for orders above Rs 10000, Rs 200 delivery fee below",active,2024-06-01,recommended,logistics,2026-12-01,2026-06-01
+R017,Return Policy,sales,customer,"Returns accepted within 7 days of delivery for quality issues",active,2024-07-01,mandatory,sales,2026-12-01,2026-07-01
+R018,Quality Standards,production,quality,"Products must meet ISO 9001 quality standards",active,2024-07-01,mandatory,production,2026-12-01,2026-07-01
+R019,Team Leadership,hr,structure,"Each production team must have designated team leader",active,2024-07-15,mandatory,production,2026-12-01,2026-07-15
+R020,Profit Reinvestment,financial,investment,"Minimum 25% of annual profit reinvested in cooperative",active,2024-07-15,mandatory,finance,2026-12-01,2026-07-15
+R021,Ethical Sourcing,operations,procurement,"All raw materials must be from ethical and conflict-free sources",active,2024-08-01,mandatory,procurement,2026-12-01,2026-08-01
+R022,Member Rights,governance,member,"All members have voting rights and access to cooperative records",active,2024-08-15,mandatory,all_members,2026-12-01,2026-08-15
+R023,Work Life Balance,hr,wellness,"Maximum 8 hours per day, 45 hours per week, overtime optional",active,2024-09-01,recommended,hr,2026-12-01,2026-09-01
+R024,Dispute Resolution,governance,conflict,"Disputes resolved through internal mediation committee",active,2024-09-15,mandatory,all_members,2026-12-01,2026-09-15
+R025,Innovation Fund,financial,investment,"2% of revenue allocated to innovation and R&D fund",active,2024-10-01,mandatory,finance,2026-12-01,2026-10-01
+R026,Diversity Policy,hr,inclusion,"Promote diversity in hiring, equal opportunity for all",active,2024-10-15,recommended,hr,2026-12-01,2026-10-15
+R027,Data Privacy,governance,security,"Member data and financial information kept confidential and secure",active,2024-11-01,mandatory,admin,2026-12-01,2026-11-01
+R028,Skill Development,hr,training,"Annual skill development program for all members",active,2024-11-15,mandatory,hr,2026-12-01,2026-11-15
+R029,Community Engagement,governance,outreach,"Cooperatives should actively engage with local community",active,2024-12-01,recommended,all_members,2026-12-01,2024-12-01
+R030,Annual Audit,financial,audit,"Annual external financial audit required",active,2024-12-15,mandatory,finance,2026-12-15,2024-12-15

@@ -1,0 +1,21 @@
+supplier_id,supplier_name,contact_person,phone,email,address,city,pincode,material_category,quality_rating,payment_terms,lead_time_days,last_order_date,active
+S001,Sharma Cotton Mills,Rajesh Sharma,9876543300,rajesh@sharmacotton.in,Plot 45 Industrial Area,Coimbatore,641001,cotton,4.8,net_30,5,2026-07-05,Yes
+S002,Patel Agro Exports,Meena Patel,9876543301,meena@patelagro.com,56 Agricultural Zone,Ahmedabad,380001,cotton,4.5,net_15,7,2026-07-10,Yes
+S003,EcoCotton India,Amit Singh,9876543302,amit@ecocotton.in,78 Organic Valley,Nashik,422001,cotton,4.9,net_30,8,2026-07-01,Yes
+S004,ColorMaster Chemicals,Sunil Reddy,9876543303,sunil@colormaster.com,12 Industrial Estate,Mumbai,400001,dye,4.6,net_15,3,2026-06-28,Yes
+S005,NaturalDye Co.,Priya Nair,9876543304,priya@naturaldye.com,34 Eco Park,Jaipur,302001,dye,4.8,net_30,6,2026-06-30,Yes
+S006,EcoColors Ltd,Ravi Kumar,9876543305,ravi@ecocolors.in,23 Green Industrial,Surat,395001,dye,4.7,net_15,4,2026-07-02,Yes
+S007,ThreadMasters Inc,Anita Desai,9876543306,anita@threadmasters.com,67 Textile City,Ludhiana,141001,thread,4.9,net_30,7,2026-07-01,Yes
+S008,SilkThreads Pvt Ltd,Vikram Singh,9876543307,vikram@silks.in,89 Silk Road,Varanasi,221001,thread,4.9,net_15,10,2026-07-05,Yes
+S009,LuxuryThreads,Geeta Patel,9876543308,geeta@luxurythreads.com,45 Premium Zone,Surat,395001,thread,4.8,net_30,8,2026-07-08,Yes
+S010,Buttons India Ltd,Suresh Kumar,9876543309,suresh@buttonsindia.com,78 Hardware Park,Ludhiana,141001,button,4.5,net_15,5,2026-06-28,Yes
+S011,Artistic Hardware,Ram Singh,9876543310,ram@artistichardware.com,56 Craft Center,Jaipur,302001,button,4.6,net_30,7,2026-06-28,Yes
+S012,EcoButton Co.,Shanti Devi,9876543311,shanti@ecobutton.com,34 Sustainable Park,Bangalore,560001,button,4.9,net_30,10,2026-06-29,Yes
+S013,ZipMaster Inc,John Abraham,9876543312,john@zipmaster.com,89 Hardware Hub,Delhi,110001,zipper,4.7,net_15,4,2026-06-28,Yes
+S014,LaceMakers Pvt Ltd,Mary Thomas,9876543313,mary@lacemakers.com,67 Textile Lane,Kolkata,700001,lace,4.8,net_30,8,2026-06-28,Yes
+S015,BrandPrint India,Rajiv Gupta,9876543314,rajiv@brandprint.in,23 Print City,Noida,201301,label,4.6,net_15,3,2026-07-01,Yes
+S016,DisplayMasters,Anuj Sharma,9876543315,anuj@displaymasters.com,45 Display Hub,Delhi,110001,hanger,4.5,net_30,5,2026-07-02,Yes
+S017,EcoPaper Co.,Green Patel,9876543316,green@ecopaper.com,78 Paper Park,Mumbai,400001,paper,4.7,net_15,7,2026-07-02,Yes
+S018,GiftWrap India,Pooja Singh,9876543317,pooja@giftwrap.in,56 Gift Zone,Jaipur,302001,packaging,4.6,net_30,6,2026-07-03,Yes
+S019,LuxuryCovers,Amit Jain,9876543318,amit@luxurycovers.com,89 Premium Estate,Delhi,110001,packaging,4.9,net_30,10,2026-07-03,Yes
+S020,SecurePack,Ravi Shankar,9876543319,ravi@securepack.com,34 Industrial Park,Noida,201301,packaging,4.5,net_15,4,2026-07-04,Yes

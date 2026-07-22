@@ -1,0 +1,74 @@
+date,type,amount,category,sub_category,description,payment_method,reference_id
+2026-01-02,income,25000,sales,wholesale,New year bulk order from City Traders,upi,CITY001
+2026-01-05,expense,5000,raw_materials,cotton,Cotton purchase from Supplier A - 2000kg,bank_transfer,PURCH001
+2026-01-06,income,18000,sales,retail,Order from Local Boutique - Saree collection,cash,BOUT001
+2026-01-08,expense,3000,utilities,electricity,Monthly electricity bill - January,upi,UTIL001
+2026-01-10,income,32000,sales,bulk,Bulk order from Eco Store - 150 pieces,cheque,ECO001
+2026-01-12,expense,2000,logistics,transport,Delivery charges for City Traders & Eco Store,bank_transfer,LOG001
+2026-01-15,expense,4000,salaries,wages,Monthly staff wages - January,bank_transfer,SAL001
+2026-01-18,income,22000,sales,export,Export Corp order - Premium Sarees,swift,EXPO001
+2026-01-20,expense,6000,raw_materials,dye,Dye purchase - Indigo & Crimson,upi,PURCH002
+2026-01-25,expense,1500,maintenance,equipment,Sewing machine servicing - 3 units,bank_transfer,MAINT001
+2026-01-28,income,28000,sales,wholesale,City Distributors bulk order - Kurtis,cheque,CITY002
+2026-01-30,expense,2000,marketing,promotion,Social media ad campaign,upi,MARK001
+2026-02-02,income,15000,sales,retail,Local shop order - Dupatta collection,cash,LOCAL001
+2026-02-05,expense,4500,raw_materials,cotton,Raw material restock - Premium Cotton,bank_transfer,PURCH003
+2026-02-08,expense,2500,utilities,water,Water and electricity bill - February,upi,UTIL002
+2026-02-10,income,42000,sales,bulk,Government school uniform order - 500 units,cheque,GOVT001
+2026-02-12,expense,1800,logistics,transport,Delivery to Government School,bank_transfer,LOG002
+2026-02-15,expense,4000,salaries,wages,February staff payment,bank_transfer,SAL002
+2026-02-18,income,35000,sales,export,International buyer order - Designer collection,swift,INT001
+2026-02-20,expense,7000,raw_materials,material,Massive material order - Thread & Fabric,upi,PURCH004
+2026-02-25,expense,2000,maintenance,machine,Sewing machine overhaul - 2 units,bank_transfer,MAINT002
+2026-02-28,income,27000,sales,wholesale,Eco Store repeat order - Sarees,cheque,ECO002
+2026-03-02,income,45000,sales,bulk,Holiday season bulk order - Wedding collection,cheque,WEDDING001
+2026-03-05,expense,8000,raw_materials,cotton,Bulk cotton purchase - 3000kg,bank_transfer,PURCH005
+2026-03-08,expense,3000,utilities,electricity,Monthly utilities - March,upi,UTIL003
+2026-03-10,income,38000,sales,export,Export Corp big order - Silk Sarees,swift,EXPO002
+2026-03-12,expense,3000,logistics,transport,Shipping to international buyer,bank_transfer,LOG003
+2026-03-15,expense,5000,salaries,wages,March staff payment with bonus,bank_transfer,SAL003
+2026-03-18,income,22000,sales,retail,Local boutique repeat order - Kurtis,cash,BOUT002
+2026-03-20,expense,2500,maintenance,equipment,New sewing machines - 2 units,bank_transfer,MAINT003
+2026-03-22,income,31000,sales,wholesale,City Traders new contract - Premium range,cheque,CITY003
+2026-03-28,expense,3500,raw_materials,dye,Special fabric dye purchase,upi,PURCH006
+2026-04-01,income,50000,sales,bulk,Mega order from Corporation - 800 pieces,cheque,CORP001
+2026-04-05,expense,12000,raw_materials,cotton,Large raw material purchase - Premium,swift,PURCH007
+2026-04-08,expense,3500,utilities,water,April utilities - Water & Electricity,upi,UTIL004
+2026-04-10,income,36000,sales,export,Export Corp repeat order - Designer,swift,EXPO003
+2026-04-12,expense,5000,logistics,transport,Heavy delivery month - Multiple clients,bank_transfer,LOG004
+2026-04-15,expense,7000,salaries,wages,April staff payment with performance bonus,bank_transfer,SAL004
+2026-04-18,income,29000,sales,wholesale,School uniform additional order,cheque,GOVT002
+2026-04-20,expense,2000,maintenance,premises,Workshop premises maintenance,bank_transfer,MAINT004
+2026-04-22,income,33000,sales,bulk,Eco Store expansion order - 200 pieces,cheque,ECO003
+2026-04-28,income,41000,sales,export,Export Corp regular order - Silk range,swift,EXPO004
+2026-05-01,income,48000,sales,bulk,Mid-year large contract - 600 pieces,cheque,CONTRACT001
+2026-05-05,expense,10000,raw_materials,material,Bulk thread and dye purchase,bank_transfer,PURCH008
+2026-05-08,expense,3000,utilities,electricity,May utilities,upi,UTIL005
+2026-05-10,income,26000,sales,retail,New client from nearby city - Sample order,cash,NEW001
+2026-05-12,expense,3000,logistics,transport,Delivery to multiple locations,bank_transfer,LOG005
+2026-05-15,expense,6000,salaries,wages,May staff payment with festival bonus,bank_transfer,SAL005
+2026-05-18,income,55000,sales,bulk,Biggest single order ever - Wedding Collection,cheque,WEDDING002
+2026-05-20,expense,15000,raw_materials,cotton,Premium raw material for special order,bank_transfer,PURCH009
+2026-05-25,expense,2500,maintenance,machine,AC repair for workshop,upi,MAINT005
+2026-05-28,income,20000,sales,wholesale,City distributor repeat order,cheque,CITY004
+2026-06-01,income,30000,sales,bulk,June opening order - Corporate gifting,cheque,GIFT001
+2026-06-05,expense,5000,raw_materials,dye,Raw material for new design collection,upi,PURCH010
+2026-06-08,expense,2500,utilities,water,June utilities,upi,UTIL006
+2026-06-10,income,36000,sales,export,Export Corp regular order - Summer collection,swift,EXPO005
+2026-06-12,expense,2000,logistics,transport,Domestic deliveries - multiple,upi,LOG006
+2026-06-15,expense,6000,salaries,wages,June staff payment,bank_transfer,SAL006
+2026-06-18,income,22000,sales,retail,Local school order - Summer uniforms,cheque,SCHOOL001
+2026-06-20,expense,3500,raw_materials,material,Special fabric for monsoon collection,upi,PURCH011
+2026-06-25,income,42000,sales,bulk,Export Corp big order - 300 pieces,swift,EXPO006
+2026-06-28,expense,1800,maintenance,premises,Workshop painting and repairs,bank_transfer,MAINT006
+2026-07-01,income,25000,sales,wholesale,July opening order - Wholesale market,cheque,JULY001
+2026-07-03,expense,4000,raw_materials,cotton,Cotton restock - Standard grade,bank_transfer,PURCH012
+2026-07-05,income,32000,sales,bulk,Eco Store order - New collection,cheque,ECO004
+2026-07-07,expense,3000,utilities,electricity,July utilities,upi,UTIL007
+2026-07-08,income,58000,sales,bulk,Record order - School uniform mega deal,cheque,GOVT003
+2026-07-10,expense,8000,raw_materials,material,Thread bulk purchase - All colors,upi,PURCH013
+2026-07-12,income,28000,sales,retail,Local boutique premium order,cash,BOUT003
+2026-07-15,expense,6500,salaries,wages,July staff payment with quarterly bonus,bank_transfer,SAL007
+2026-07-16,income,45000,sales,export,International order - Wedding collection,swift,INT002
+2026-07-18,expense,3500,logistics,transport,Export shipping charges,bank_transfer,LOG007
+2026-07-20,income,38000,sales,wholesale,City Traders premium range order,cheque,CITY005

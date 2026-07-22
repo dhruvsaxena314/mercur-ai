@@ -1,0 +1,31 @@
+production_id,date,product_type,item_name,quantity_produced,quantity_defective,defect_rate,raw_material_used,worker_hours,team_lead,shift,quality_score,production_cost
+P001,2026-07-01,saree,Saree Classic,45,2,4.44,"Cotton 85kg, Thread 120 spools",32,Rajesh Kumar,Morning,96,8500
+P002,2026-07-02,saree,Saree Premium,30,1,3.33,"Silk 25kg, Thread 80 spools",24,Sita Patel,Morning,97,12000
+P003,2026-07-03,kurti,Kurti Cotton,40,1,2.50,"Cotton 30kg, Thread 60 spools",20,Vikram Rao,Morning,98,4500
+P004,2026-07-04,kurta,Kurta Men's,35,0,0.00,"Cotton 40kg, Thread 50 spools",18,Rajesh Kumar,Evening,99,5200
+P005,2026-07-05,saree,Saree Designer,18,2,11.11,"Silk 20kg, Thread 40 spools",28,Sita Patel,Morning,89,18000
+P006,2026-07-06,dupatta,Dupatta Cotton,60,3,5.00,"Cotton 25kg, Thread 30 spools",15,Sunita Devi,Evening,95,3000
+P007,2026-07-07,kurti,Kurti Designer,22,1,4.55,"Silk 15kg, Thread 25 spools",18,Deepak Kumar,Morning,96,8000
+P008,2026-07-08,saree,Saree Classic,50,2,4.00,"Cotton 95kg, Thread 140 spools",35,Rajesh Kumar,Morning,96,9200
+P009,2026-07-09,kurta,Kurta Silk,15,0,0.00,"Silk 15kg, Thread 20 spools",16,Vikram Rao,Evening,98,11000
+P010,2026-07-10,stole,Stole Wool Blend,30,1,3.33,"Wool 20kg, Thread 15 spools",12,Pooja Patel,Evening,97,3500
+P011,2026-07-11,saree,Saree Premium,35,1,2.86,"Silk 30kg, Thread 90 spools",28,Sita Patel,Morning,98,13500
+P012,2026-07-12,dupatta,Dupatta Silk,25,0,0.00,"Silk 15kg, Thread 20 spools",14,Meena Gupta,Morning,99,6000
+P013,2026-07-13,kurti,Kurti Silk Blend,20,1,5.00,"Silk 12kg, Thread 18 spools",16,Deepak Kumar,Evening,95,7200
+P014,2026-07-14,saree,Saree Wedding,10,0,0.00,"Silk 15kg, Thread 30 spools",22,Sita Patel,Morning,98,25000
+P015,2026-07-15,kurta,Kurta Men's,40,2,5.00,"Cotton 45kg, Thread 55 spools",22,Rajesh Kumar,Morning,94,5800
+P016,2026-07-16,saree,Saree Classic,55,3,5.45,"Cotton 100kg, Thread 150 spools",38,Rajesh Kumar,Morning,93,10000
+P017,2026-07-17,dupatta,Dupatta Embroidered,20,1,5.00,"Cotton 15kg, Thread 25 spools",16,Sunita Devi,Evening,96,5500
+P018,2026-07-18,kurti,Kurti Cotton,45,1,2.22,"Cotton 35kg, Thread 70 spools",22,Vikram Rao,Morning,97,5000
+P019,2026-07-19,saree,Saree Designer,15,1,6.67,"Silk 18kg, Thread 35 spools",26,Sita Patel,Morning,94,15000
+P020,2026-07-20,stole,Stole Silk,18,0,0.00,"Silk 12kg, Thread 12 spools",10,Pooja Patel,Evening,98,5000
+P021,2026-07-21,saree,Saree Premium,40,1,2.50,"Silk 35kg, Thread 100 spools",32,Sita Patel,Morning,97,14000
+P022,2026-07-22,kurta,Kurta Silk,20,0,0.00,"Silk 20kg, Thread 25 spools",18,Vikram Rao,Morning,98,11500
+P023,2026-07-23,kurti,Kurti Designer,18,0,0.00,"Silk 12kg, Thread 20 spools",20,Deepak Kumar,Evening,98,8500
+P024,2026-07-24,saree,Saree Classic,60,3,5.00,"Cotton 110kg, Thread 160 spools",40,Rajesh Kumar,Morning,95,10800
+P025,2026-07-25,dupatta,Dupatta Cotton,65,2,3.08,"Cotton 28kg, Thread 35 spools",18,Sunita Devi,Morning,97,3200
+P026,2026-07-26,saree,Saree Wedding,8,0,0.00,"Silk 12kg, Thread 25 spools",20,Sita Patel,Evening,99,22000
+P027,2026-07-27,kurta,Kurta Men's,38,1,2.63,"Cotton 42kg, Thread 52 spools",20,Rajesh Kumar,Morning,97,5500
+P028,2026-07-28,kurti,Kurti Silk Blend,25,0,0.00,"Silk 15kg, Thread 22 spools",18,Deepak Kumar,Morning,98,7500
+P029,2026-07-29,saree,Saree Designer,12,0,0.00,"Silk 14kg, Thread 28 spools",24,Sita Patel,Morning,97,17000
+P030,2026-07-30,dupatta,Dupatta Embroidered,22,1,4.55,"Cotton 18kg, Thread 28 spools",18,Meena Gupta,Evening,96,5800
