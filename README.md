@@ -278,7 +278,7 @@ MercurAI prevents this. It transforms cooperatives from fragile to resilient, fr
 
 ---
 
-https://mercur-ai.com
+https://mercur-ai.web.app
 dhruvisgood13@gmail.com
 
 ---
@@ -298,4 +298,3 @@ Not with magic. With intelligence. With data. With a system that brings together
 
 ---
 
-*Made with ❤️ for cooperatives, cottage industries, and the people who make them work.*
